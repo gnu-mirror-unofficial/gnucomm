@@ -21,68 +21,43 @@
 
 <H4>Table of contents</H4>
 <UL>
-  <LI><A HREF="#intro" NAME="TOCintro">Introduction to GNUCOMM</A>
-  <LI><A HREF="#roadmap" NAME="TOCroadmap">The GNUCOMM Roadmap</A>
-  <LI><A HREF="#getsoftware" NAME="TOCgetsoftware">Get the Software</A>
-  <LI><A HREF="#mailinglist" NAME="TOCmailinglist">Join the Discussion
-   on the Mailing List</A>
-  <LI><A HREF="#cvs" NAME="TOCcvs">CVS Access</A>
-  <LI><A HREF="#contact" NAME="TOCcontact">Contact Info</A>
+  <LI><A HREF="#overview" NAME="overview">GNUComm System Design Overview</A>
+  <LI><A HREF="#components" NAME="roadmap">GNUComm Components</A>
+  <LI><A HREF="#getsoftware" NAME="getsoftware">Get the Software</A>
+  <LI><A HREF="#mailinglist" NAME="mailinglist">Join the Discussion
+   on the Mailing Lists</A>
+  <LI><A HREF="#cvs" NAME="cvs">CVS Access</A>
+  <LI><A HREF="#contact" NAME="contact">Contact Info</A>
 </UL>
 
 <P>
 <HR>
 <P>
-
-<H4><A HREF="#TOCintro" NAME="intro">Introduction to GNUCOMM</A></H4>
+<H4><A HREF="#overview" NAME="overview">GNUComm System Design Overview</A></H4>
 <P>
-The GNUCOMM project will provide the standards-based free software necessary to enable the switching and transception of multimedia streams for use in telecommunications applications such as voicemail and video conferencing.  The goal is not just to provide a replacement for proprietary telecommunications servers and clients.  The goal is to provide better solutions to common telecommunications problems.
+<A HREF="overview.html" NAME="overview">Version 0.6 of the GNUComm System Design Overview</A> is now available.  It is currently being maintained by rsb.  Check it out.
 <P>
-At a high-level, examples of the functionality that GNUCOMM will be capable of include:
-<UL>
-<LI> Voice Response applications, i.e. menus, screen pop, transactions, etc.
-<LI> Messaging, i.e. Voicemail, Paging, SMS, etc.
-<LI> Switching and Routing of converged voice/data services.
-<LI> Conferencing, including video conferencing and directory lookup.
-<LI> More...
-</UL>
+The 
 <P>
-On a slightly lower level, the applications that handle these multimedia streams will carry out a number of tasks: messaging, switching, bridging, notification, interactive response, discovery, and conferencing.  These tasks will be enabled by a set of cooperating processes.  
+<H4><A HREF="#components" NAME="components">GNUComm Components</A></H4>
 <P>
-In support of the GNUCOMM applications, a number of protocol stacks and conversion engines will be required.  Commodity protocols and data formats will be the focus of development.
+Pre-release versions of some GNUComm Components are already available:<P>
 <P>
-GNUCOMM will interoperate with the rest of the GNU System, including GNU Enterprise.  Drivers for required hardware will be supported by GNUCOMM and added to the HURD.
+Bayonne - Application Server - dyfet<P>
+Babylon - Telephony Device Monitor - dyfet<P>
+TOSI - Client Call Control System - visitor<P>
+Voice Mail - Multi-user messaging application - rsb<P>
+Support Automation -  Tele-support application - rsb<P>
+Sales Automation - Tele-sales application - rsb<P>
 <P>
-<H4><A HREF="#TOCroadmap" NAME="roadmap">Roadmap</A></H4>
-The GNUCOMM roadmap is still in it's nascent stages. However, the coordinator takes a pragmatic point of view.  We want to establish a fully functioning system pronto.  This will provide us with the invaluable input of users, and will help developers to get involved as well.  Fortunately, this is possible using existing free software.  Goals have been set around releases of the GNUCOMM, in stages similar to that of software distributions.  The first functioning system will become the "stable" development track, and once released, will be incrementally improved.  After the first "stable" release, an "unstable" development track will be pursued in parallel.  The unstable releases are complete redesigns of the stable system, based on the needs of the system's users and changes in telecommunications technology.  A number of lively debates will likely ensue regarding the system design :).
+Some GNUComm Components are being organized but are not yet available:<P>
 <P>
-GNUCOMM 0.1 - A functional communications sytem
+TRiP - Transaction Redundancy Protocol System - visitor<P>
 <P>
-<UL>
-<LI>Voice Response System - Done
-<LI>Fax Server - TBD
-<LI>VOIP Client - TBD
-<LI>SMS Server - TBD
-<LI>Small Business scripts - TBD
-<LI>Packaging and Documentation - TBD
-</UL>
 <P>
-GNUCOMM 1.0 - A new architecture
-<P>
-<UL>
-<LI>Functional Spec - June 2000
-</UL>
-<P>
-
-<H4><A HREF="#TOCgetsoftware" NAME="getsoftware">Get the Software</A></H4>
-<P>
-The GNUCOMM project has had the following software contributed:
-<P>
-<a href="/software/bayonne/bayonne.html">ACS</a> - Multi-line telecommunications server, and Bayonne - The redesigned successor to ACS.
-<P>
-Many more programs useful to this project are available under the GPL.  Programs will continually be added to the project to fill gaps in the functionality of the system.  If you would like to see a program added to GNUCOMM, bring it up on the mailing list.
+<H4><A HREF="#getsoftware" NAME="getsoftware">Get the Software</A></H4>
 <P>  
-<H4><A HREF="#TOCmailinglist" NAME="mailinglist">Mailing Lists</A></H4>
+<H4><A HREF="#mailinglist" NAME="mailinglist">Mailing Lists</A></H4>
 <P>
 The canonical set of GNU mailing lists have been set up for GNUCOMM:
 <P>
@@ -93,15 +68,12 @@ The canonical set of GNU mailing lists have been set up for GNUCOMM:
 <B>info-gnucomm</B> is the moderated announcements list: <A HREF="mailto:info-gnucomm@gnu.org">&lt;info-gnucomm@gnu.org&gt;</A>.  Subscribe to this list by sending the word "subscribe" in the body of an otherwise empty message to <A HREF="mailto:info-gnucomm-request@gnu.org">&lt;info-gnucomm-request@gnu.org&gt;</A>.
 <P>
 
-<H4><A HREF="#TOCcvs" NAME="cvs">CVS Access</A></H4>
-
-Anonymous cvs access to the GNUCOMM CVS repository is not yet available.<BR>
-Directions for accessing the GNUCOMM CVS repository will be posted as soon as it is established.
-
+<H4><A HREF="#cvs" NAME="cvs">CVS Access</A></H4>
+<a href="cvsdirections.html">These instructions</a> are available for anonymous cvs access. 
 <P>
-<H4><A HREF="#TOCcontact" NAME="contact">Contact information</A></H4>
+<H4><A HREF="#contact" NAME="contact">Contact information</A></H4>
 <P>
-The current coordinator for the project is <A HREF="mailto:rsb@ostel.com">&lt;rsb@ostel.com&gt;</A> 
+The current coordinator for the project is <A HREF="mailto:rsb@ostel.com">&lt;rsb at ostel dot com&gt;</A> 
 <P>
 
 <HR>
@@ -120,7 +92,7 @@ Please send comments on these web pages to
 <A HREF="mailto:webmasters@gnu.org"><EM>webmasters@gnu.org</EM></A>,
 send other questions to <A HREF="mailto:gnu@gnu.org"><EM>gnu@gnu.org</EM></A>.
 <P>
-Last updated: May 16, 2000
+Last updated: August 27, 2001
 <P>
 <p>
     <a href="http://validator.w3.org/check/referer"><img border=0
