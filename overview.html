@@ -1,0 +1,1088 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<HEAD>
+<TITLE>GNUCOMM System Design Overview- GNU Project - Free Software Foundation (FSF)</TITLE>
+<LINK REV="made" HREF="mailto:webmasters@www.gnu.org">
+<META NAME="keywords" CONTENT="gnucomm system design overview">
+</HEAD>
+
+<body bgcolor="#FFFFFF" text="#000000"  LINK="#1F00FF" ALINK="#FF0000" VLINK="#9900DD">
+
+<A HREF="/graphics/agnuhead.html"><IMG SRC="OVERVIEW.PNG"
+   ALT=" [Gnucomm System Overview Diagram 1] "
+   WIDTH="129" HEIGHT="122"></A>
+
+<P>
+<HR>
+<P>
+
+
+<pre><tt>
+GNUComm Overview: 
+-----------------
+
+History
+
+08/23/01 v0.6 - bug squishing, function spec example - rsb
+07/25/01 v0.5 - more terminology - rsb
+07/04/01 v0.4 - added design goals:ease of use, general rewrite - rsb
+06/05/01 v0.3 - TOC, typos, minor changes. - rsb
+06/04/01 v0.2 - added design goals:documentation - rsb
+03/13/01 v0.1 - created - Rich Bodo - rsb@ostel.com
+
+Contents
+
+1.0 Intro
+2.0 Functional Goals
+3.0 Deployment
+4.0 Design Overview
+       4.1 Functions
+	   4.1.1 A walk through application space
+	   4.1.2 Function Spec Example
+	   4.1.3 Function List
+       4.2 Components
+	   4.2.1 Component Standards
+	   4.2.2 Core Components
+	   4.2.3 Application Components
+	   4.2.4 Miscellaneous Components
+       4.3 Design Goals
+	   4.3.1 Power
+	   4.3.2 Reliability
+	   4.3.3 Security
+	   4.3.4 Ease of Use
+	   4.3.5 Documentation
+5.0 How you can help
+
+1.0 Intro 
+---------
+
+Telephony equipment is currently reliant on proprietary hardware and
+software to power everything from PBX's, voicemail systems,
+softphones, and gateways to large call-centers and carrier
+infrastructures.  GNUComm will offer a replacement for this
+proprietary software and integrate the functionality of these common
+applications into a more flexible and broadly functional free system
+running on commodity hardware.  Along the way, GNUComm will provide a
+number of applications and software components useful to other free
+software projects.
+
+The next section describes the functional goals of GNUComm based on
+the problems we would like to solve.  We don't want developers to feel
+the need to satisfy someone else's requirements.  Rather, we would
+like GNUComm to be the type of system that people will want to use to
+satisfy their own requirements.  The current developers eat their own
+dog food and use the early prototypes of GNUComm every day.  We hope
+that GNUComm becomes as useful and fun to work on to others as it is
+to us.
+
+Throughout this document, we will sometimes refer to the GNUComm
+subsystem of the GNU project as "GNUComm", or sometimes just "the
+system".  GNUComm is part of a larger project, called the GNU project,
+which you can learn more about at www.gnu.org.
+
+If after reading this document you are still wondering what GNUComm is
+or how it will be designed, see the web site and the mailing lists.
+Whenever we refer to "the GNUComm web site" or "the web site", we are
+referring to: http://www.gnu.org/software/gnucomm/gnucomm.html.  You
+can join the mailing lists on the web site.
+
+2.0 Functional Goals
+--------------------
+
+A functional spec will be completed for each individual milestone.
+However, a minimal initial set of overall goals based on the
+anticipated needs of the user-base can be described right here.  Many users
+would like to handle messaging (voice, fax, text) and that's about it.
+Next on the list for multi-user installations are PBX-type
+applications, and more advanced call distribution and switching capabilities.
+Larger organizations will require sales and support automation,
+business software integration, softphones and requisite gateway
+software.  On our way to implementing these basic needs, a number of
+more esoteric and interesting areas will get some attention, such as
+remote automation and control of networked computer systems.  Users of
+the GNU system will be able to fill these needs with GNUComm
+applications that will interoperate with each other and the rest of
+the GNU system.
+
+We can further describe those functional goals with the following
+parameters:
+
+GNUComm is to be a working subsystem of the GNU project providing
+interoperable components that enable human communications.
+
+GNUComm will rely on a number of new servers, clients, supporting
+component libraries, and an extensive library of applications.
+
+GNUComm will be fully integrated with GNU Enterprise.
+
+GNUComm applications will eventually be composed at a high enough
+level to allow users with little or no special knowledge of system
+internals or theory to design their own telecommunications systems.
+
+GNUComm will support a wide variety of telephony resources and
+communications mechanisms including VoIP and PSTN communications.  It
+will provide mechanisms for communicating with useful proprietary
+systems whenever possible.  As a free software project, whatever is
+deemed useful gets supported; we are not beholden to any company or
+standards organization in this regard.
+
+GNUComm aims to be scalable and configurable.  Several GNUComm
+components are designed to increase the reliability of existing
+three-tiered application architectures.  GNUComm's component
+architecture will allow the system to be broken down for embedding
+into very tight systems.
+
+In all cases the unique flexibility of free software will be
+leveraged (i.e. configuration available on many levels for many users,
+interoperability with other free software components).  In no case
+should the average programmer with access to a low-end PC and not much
+else be left with no solution.
+
+3.0 Deployment
+--------------
+
+The deployment strategy taken will be similar to other GNU
+meta-projects (GNOME, GNUE, etc.).  In this section we will put first
+things first, describe our strategy for solving the right amount of
+the problem, and cover standard development practices.  At the time of
+this writing, we have defined the following milestones:
+
+M1 - SAG, Interoperability
+
+   Deliverable is a GNUComm System Administrator's Guide (GSAG), and a
+   User's Guide for each application we have checked in.  This will
+   provide a working base for users and developers to get started
+   with.  (Actually, I wouldn't exclude manuals for applications that
+   are *not* yet checked in.  I tend to write the manual first, then
+   design the application.)
+
+   Many of the functions performed by proprietary telecommunications
+   systems can be carried out with free software already.  Some of
+   this software is already part of GNUComm.  Documenting this
+   software is our first task, making M1 largely a documentation
+   project.  If new software needs to be developed to meet the minimum
+   Functional Goals of GNUComm, then specific documentation of that fact
+   is a requirement of M1.
+
+   Although M1 will not be a complete system, it will be a working
+   system consisting of GNUComm Components that interoperate with some
+   other applications.  In M1, although work can begin on apps and
+   system design documents, the focus will be on Interoperability.
+   Design documents are not required deliverables of M1; the SAG and
+   Users guides are.  The average free software user should be able to
+   follow the M1 documentation to create a working system.  GNUComm
+   documentation should have separate sections geared for programmers
+   and end-users.
+
+   There are several reasons to do this first:
+	
+	1) The documentation will help people to create useful systems while
+	long-term solutions are being developed.
+	
+	2) In the long-term, GNUComm should interoperate with as many of
+	these applications as possible.  Experience with these
+	applications will help us to do that.
+
+	3) Experience with these applications will help us to
+        design our own components.
+
+	4) We may find applications that we can integrate with.
+   
+   We should define a few terms here:
+
+   GNUComm Component - Any software entity natively hosted as an
+   official part of GNUComm.  GNUComm components can be built from
+   code checked out from the GNU project cvs repository.  For a
+   Component to achieve release status (non-beta) within GNUComm, it
+   must both meet the Component Standards and associate with (help
+   implement) a Function.  They support all applicable GNUComm
+   protocols, reporting facilities, and other requisite standards for
+   their given Function(s).
+  
+   GNUComm Component Standards - Coding, documentation and testing standards
+   that are applied to all GNUComm components.  What it takes to
+   create a stable component.
+
+   GNUComm Function - An interface specification contract fulfilled by
+   GNUComm Components.  Functions define how the entire GNUComm system
+   cooperates.
+
+   Outside Component - We will sometimes use this term for any software entity
+   which is not a GNUComm Component.  Maybe we should come up with a
+   better name for these.
+
+   Interoperate - When a GNUComm Component and an Outside Component
+   interoperate, they share their underlying resources and data as
+   necessary to carry out normal operations without interfering with
+   one another.
+ 
+   Integrate - When an outside application is fully integrated with the
+   GNUComm subsystem, it is made to support all the features of a
+   GNUComm Component.
+
+   Some comments on Outside Components:   
+
+   Interoperability is a good thing.
+
+   We are interested in free software only, so if an Outside Component does not
+   meet the free software definition or depends on other software that
+   does not, it will never be integrated with GNUComm.  We can, of course,
+   Interoperate via any communications protocol used by an Outside
+   Component, whether free, proprietary, or other.  For many useful functions,
+   interoperability will have to do at first until a better solution can be
+   found.
+
+   Testing and Documentation of Outside Components may be necessary.
+   This is not to say that we should create User's Guides for
+   individual applications that will not be integrated with GNUComm in
+   the long run; those should already exist and should be checked in
+   as part of their own projects.  We only need create enough
+   documentation for these applications to give users a coherent
+   manual for their use within our system.  The more apps we can
+   interoperate with, the better.  An example of this?  How about an
+   integrated messaging system.  No attempt need be made to reinvent
+   the wheel.  We will only need to write a document that describes
+   how a large number of servers (web, mail, sms, ivr, etc., etc.) can
+   be configured to cooperate to carry out the desired functionality.
+   No new functionality needs to be developed.
+
+M2 - SDD, Integration
+   
+   Deliverable is the GNUComm System Design Document (GSDD), an
+   overview of which is described here and in the System
+   Overview diagram on the GNUComm web site.  This overview is very
+   general.  The GSDD will quantitatively describe GNUComm Functions,
+   Components, and Component Standards.  
+
+   We are designing a system that is practical, open, flexible,
+   scalable, and interoperable.  Interoperability sums up the
+   challenge for this version; making the interfaces clean enough so
+   that alternate versions of any given server can be hot-swapped into
+   the system is important.
+
+   Design documents detailing required and optional infrastructure
+   components, interfaces, and protocols will be hashed out.  A
+   functional spec for M3 will be hammered out.  Anything that needs
+   to be built from scratch or re-written will be.  M2 will lead to
+   GNUComm 1.0., and will be held to the same standards of
+   documentation that M1 was.
+   
+   Comments on Integration:
+
+   Integration is a good thing.
+
+   If there are multiple Integration options for a given function, we
+   should, at this stage, value stability and interoperability, i.e. a
+   0.1 version or a version that has only a gui interface are not
+   likely to recommend a project for integration, but support for
+   commodity protocols will.  We want to get a working system up as
+   soon as possible.
+
+That's the extent of the milestones in the initial plan, but here are a few
+thoughts on where we go from there:
+
+   From here, we set higher functional goals and iterate.  Both a
+   stable track and an unstable track will continually be pursued.
+   When we refer to milestones, such as M1, we are describing
+   deliverables.  When we describe versions of the system, such as
+   GNUComm 0.1 and GNUComm 0.2, we are describing modules, or versions
+   of the entire system whose components are to be developed, tested,
+   and used together.  The odd modules (0.1, 0.3, 2.1) are the
+   unstable track modules.  The even modules (0.2, 1.0, 1.4) are the
+   stable track modules.  Components that achieve release-status will
+   be packaged into GNUComm Releases.
+
+   We may talk about reaching milestone x before releasing version
+   y.z, which gives the project direction, but milestones are not tied
+   to either dates or modules (too much pressure! ;-) ).  With goals
+   and deployment issues behind us, we know what we need and begin the
+   design process.  The rest of this document is a design overview,
+   and refers to figures on the web site.
+
+4.0 Design Overview 
+-------------------
+
+Even for those who have the background to know what generally works
+when designing telephony systems, a number of design challenges arise
+every time a new project is taken on.  In our case these challenges are
+exacerbated by the both the large scope of the functional goals and the
+wide breadth of the platform support.  This version of the
+GNUComm Design Overview will be an informal introduction to these
+challenges and our proposed solutions. 
+
+How do we design in modularity?  
+
+When both the application space and platform range are as large as
+ours, modularity is a dominant design challenge.  The rest of this
+section will attempt to answer the modularity question while
+briefly describing the GNUComm Functions, Components and Component
+Standards.
+
+Having the ability to combine functionality into one process can be
+a practical necessity (this is often the case with application and
+media servers).  However, having the ability to strip a server down
+into simpler stand-alone components can also be extremely useful.  A
+simpler piece of code generally simplifies configuration, maintenance,
+debugging, security, performance optimization, re-use and integration.
+Add to this the requirement for GNUComm components to scale up and
+down to accommodate the broad range of machines and operating systems
+running GNU software, and we can justify several potential abstraction
+layers.
+
+A component model for GNUComm will be helpful for project management
+reasons alone.  We definitely want to involve as many developers as
+possible in GNUComm at a high-level.  In addition to this general
+predilection, GNUComm needs to interoperate with some object request
+architectures (i.e. GNUE:CORBA) *and* make it easy for average users
+(read:novices without specialized hardware) to combine components.
+(Yes, we will be working on this design for a while.)  We will
+enumerate Components and Functions later, but let's solidify the
+relationship right now:
+
+   GNUComm Component - Any software entity natively hosted as an
+   official part of GNUComm.  GNUComm components can be built from
+   code checked out from the GNU project cvs repository.  For a
+   Component to achieve release status (non-beta) within GNUComm, it
+   must both meet the Component Standards and associate with (help
+   implement) a Function.  They support all applicable GNUComm
+   protocols, reporting facilities, and other requisite standards for
+   their given Function(s).
+  
+   GNUComm Function - An interface specification contract fulfilled by
+   GNUComm Components.  Functions define how the entire GNUComm system
+   cooperates.  The set of all GNUComm Functions defines is the interface
+   contract of the system.
+
+Note that components are considered beta until they fill a Function.
+Often this will mean that we need to write a new function and redesign
+GNUComm to accommodate a component.  The design of the Function
+interface should be thorough enough to allow any vendor to rip out the
+GNUComm component filling that function and drop in their own.
+Multiple Components can fill one Function and one Component can fill
+multiple Functions.
+
+The set of all GNUComm Functions defines the interface contract of
+the system.  The set of all Components that have reached release
+status forms the implementation of the system.  We will perform a
+system test on released components prior to making a GNUComm stable
+release.  So, we've probably beaten that to death.
+
+To give give you a feel for the design of the system we will contrast
+GNUComm telephony services with a system that you may already be
+familiar with.  We know that telecom resources (protocol stacks,
+drivers, etc.)  are typically state machines which should respond
+within some real-time constraints with signaling information and/or
+data payloads, and our applications need to be able to act in kind to
+use them.  We can also assume that we have observed the working,
+scalable server designs used to power the internet and we see that
+there is much to reuse.  Although HTTP is typically served in a soft
+real-time manner, the state machine for the protocol is not too
+different from a state machine used to control a telephony resource.
+So the interface description language is a little different, but with
+little modification the same three-tiered architecture can power a
+telephony application and a web application at the same time.  The
+additional interface server is called Bayonne instead of Apache, the
+interface language is called BayonneXML instead of HTML, and we are
+using TGI instead of CGI, but application development is no harder to
+for a developer to learn.  In fact, you could probably call Bayonne an
+Interface Server or a Voice Server instead of an Application Server.
+With server-side scripting the line gets a bit blurry.
+
+The development methodology is three tier, and parallels web
+development closely.  The same comparison can be made with GNU
+Enterprise.  In fact, the same back end logic could be used in all
+three systems.  They all interface with humans.  The same perl or
+python scripts used for CGI, TGI, or (EGI?).  Apache, Bayonne, and
+GEAS are at the same level.  When thinking a bit bigger, the same
+CORBA-based Object Web can be drawn upon to implement the business
+logic for all of these application servers.  The objects drawn from
+the object web could be cgi scripts, tgi scripts, egi scripts, or
+perhaps Enterprise Java beans.
+
+The web comparison stops there.  Gnucomm Components will interact with
+systems that we are already using.  Not just our existing phone lines
+or phones but our web and business software, our network monitors, our
+PDA's, our office applications, and the rest of the GNU system.  We
+will need to add a few components to our infrastructure to correct the
+typically lax web transaction environment and to interface to business
+logic systems like GNUe.  These business and server components are
+described in the next section.
+
+The web environment comparison may also be misleading in terms of scope.
+One place GNUComm differs from a web application platform is in the
+variety and sheer number of communications resources we have to
+consider.  Replace an HTTP protocol stack with drivers from a dozen
+hardware vendors and a dozen or so more protocol stacks for various
+VoIP and signaling functions.  Then we have routing, directory
+services, applications, etc.
+
+To see where we might draw the lines in a modular system, let's
+consider for a moment how we might abstract the above mentioned
+telephony resources.  It's easy to get out of hand with multiple
+layers of abstraction and protocol overhead when exposing these.
+A thin Resource API directly encapsulating several common driver
+interfaces may be the simplest and most widely useful abstraction we
+can create.  The actual implementation would be a small library with a
+mid-sized API.  In cases where processing power and execution size is
+at an absolute premium, the library could be gutted and only the
+necessary functions compiled into an application.  The Resource
+Library is a useful concept and a GNUComm Function.
+
+If you wanted to encapsulate a high-level protocol such as H.323, you
+would have to encapsulate an H323 implementation API.  Most hardware
+driver APIs do not employ the concepts of sessions, white-boards, or
+talking heads, so adding this to our Resource Library would be a
+radical complexity increase.  Effectively, an H323 implementation API
+is a superset of the Resource Library API.  Protocol stacks like H323
+require several network resources that most driver libraries do not.
+If we are using H323, we can safely bet that the applications can
+reasonably access resources in real-time across the network.  In these
+cases, a Resource Protocol might be a useful out of band interface to
+both the H323 implementation's API and the Resource Library API.  By
+Resource Protocol I mean a protocol that is a feature-replacement for
+the API.  So a Resource Protocol library that encapsulates both VoIP
+protocols such as H.323 and Driver Resource Libraries could be
+developed for use on such a system.  This might simplify life for the
+developer who has access to the Resource Protocol Library, but it is
+no picnic to develop and maintain.  We also now have a network and
+three of our own libraries in-between our app and the driver.  
+
+We can keep going.  Say we want to manage our resources.  We can come
+up with a management daemon that registers apps as users of resources,
+handles some security issues, and implements it's own protocol for
+resource sessions.  In most cases a resource manager is a very complex piece of
+software that is going to drive performance down unacceptably.  I'm not
+entirely opposed to implementing a resource manager, but there is a
+point where programmers need to think for themselves.  In the world of
+modularity trade-offs, the functions of overbearing modules either
+get omitted, in-lined more efficiently into other components, or
+otherwise integrated in a non-intrusive way.
+
+A similar issue is the CORBA controversy.  Are we seriously
+considering forcing an ORB down the throat of a cell phone?  No.  We
+have added an optional CORBA gateway server, called EWOK, instead of a CORBA
+requirement.  Anything that EWOK can speak to can hit an ORB.
+
+The general problem is that there are lots of places we are tempted to put
+intermediate or additional protocols.  Although convenient in some
+cases, these break many other uses of the system.  The general solution is to
+make the intermediate protocols optional.  We are not obligated to
+decompose our gateways or add abstraction layers to our drivers, but
+we may allow for it for compatibility purposes.
+
+We have discussed the component definition and have seen that a
+GNUComm Component is free software known to work with the rest of the
+GNUComm system for it's intended function.  Basically, it's any module
+we maintain.  Implicitly, the Component fulfills a GNUComm Function, and the
+Function has applicable protocols, reporting facilities, and other
+requisite standards.  The Component needs to meet the GNUComm
+Component Standards for coding, documentation, and testing before the
+component can reaching release, or 1.0, status.
+
+A control server, compression library, or application could be a
+GNUComm component.  An application component might have a certain
+structure, such as a flat xml file.  As a component, it might be stored in a
+database, passed from one server to another, modified, and interpreted
+in one or more environments.  We are planning to use CORBA for this
+type of object brokering.  Some nice features of CORBA such as
+polymorphic messaging and method invocation will come in handy later
+on.
+
+GNUComm application designers are currently (v0.0) utilizing
+lightweight, homegrown alternatives to a CORBA component
+infrastructure (read:hacks).  Nothing is stopping people from
+continuing to do this, but if you are putting together a large system
+and want to avoid a lot of work, you will eventually adopt the
+CORBA-based GNUComm Component Infrastructure as it develops.  However,
+we have also stated that we would not force an object request broker
+into a situation to which it is unsuited.  To that end, we have
+introduced a Function called EWOK.  An EWOK server is a specialized
+CORBA gateway.  It translates lightweight communications into CORBA
+communications.  This is handy for both tight application environments
+where an ORB is unreasonable or for any server that for whatever
+reason has not or cannot add CORBA support.
+
+4.1 Functions:
+--------------
+
+Since we have already covered the relationship between GNUComm
+Functions and Components, we will start this section by walking
+through the application space and uncovering each GNUComm core
+Function in turn.  We will then provide an example of a Function
+definition and a list of the Functions we have in the design overview
+thus far.
+
+4.1.1 A walk through application space...
+-----------------------------------------
+
+What follows is a pseudo-tutorial introduction to the GNUComm
+Functions we are working on, with specific examples of existing and
+planned components:
+
+To make large-scale telephony applications work, we suspect we'll need
+quite a few daemons running on the server side.  For some tasks we can
+get by with a powerful Application Server:
+
+Application Server - This server handles user interaction over the
+phone system.  An early version of an application server, ACS,
+was contributed at the inception of the project.  ACS has since
+evolved into Bayonne.  Bayonne is the default app server today, but
+PreViking or any other server could plug in if it was compatible with
+the GNUCOMM interfaces.  In order to do this we need to define all the
+interfaces to this server type.
+
+The Application Server is a very useful program stand-alone.  The first
+few applications (which exist today) are fairly common examples of
+what an application server can do:
+
+	Integrated Messaging - voice messaging system that integrates
+	with other data messaging systems, such as web-based mail or
+	maybe just an MTA through the Post Office Protocol.
+	
+	Support Automation - Automated voice response with ACD to
+	allow callers to get to the information or people they need.
+	
+	Sales Automation - Integration of voice and web applications
+	for automated order processing.
+
+Once we start talking about implementing entire call centers, we are
+looking at doing some switching between disparate media streams while
+sending callers to agents, app servers, or queue servers.  Let's look
+at some of the necessary ingredients:
+
+Switch - The most common application of a telephony switch is called a
+Keyterm, or PBX.  Among other things, a PBX "expands" a small number
+of "trunks" connected to the telephone network into a larger number of
+"station lines".  An example of this might be a few linmodems
+providing PSTN access to a dozen or more softphone applications
+running on LAN-based workstations.  Our first switch will be called
+"Ipswich".  Ipswich can be used as a "dumb" programmable switch or a
+"smart" switch.  In it's dumb mode Ipswich informs a controller of
+every change of state and takes no call control action without direct
+instruction.  We will decide on a protocol for controlling the "dumb"
+Ipswich later.  In various smarter modes Ipswich will act as a registrar
+for terminals, a proxy server, and even an MCU.  In a manner similar to that of
+Bayonne, Ipswich will accomplish smart behavior through scripting.
+Applications such as a PBX will be largely developed in that way.  The
+difference between the Bayonne scripting language and Ipswich's
+scripting language, is that Ipswich is dealing with protocols,
+programs, machines.  Bayonne is dealing with people, particularly
+people with a keypad, mic, and speaker in front of them.  So the
+scripting languages have some differences.
+
+Queue Server - The first queue server will be called Advanced
+Queue Server (AQS).  As with the rest of the servers, there are advantages
+to having the option of embedding intelligence here.  For instance,
+when an important task enters or drops from a queue, it can be treated
+differently based on it's importance.  When a program pulls a task
+from a queue, it could be issued an appropriate task based on a
+comparison of the available tasks and the program's profile.  An
+example of this kind of intelligent, non-queue-like behavior would be
+when a call of great importance comes in; it might and get shoved to the front
+of the queue, and an appropriate agent might get a request to drop
+what he is doing and take the call out of the queue.
+
+If we want to integrate with other large telecommunications systems,
+particularly legacy (read:proprietary) systems, we will likely need:
+
+Device Monitor - Communicating with existing proprietary systems is a
+fact of life for many.  The Device Monitor, Babylon, will help us
+carry out this function.  Babylon maps various call control protocols
+used by Proprietary switches into a protocol usable by the GNUComm
+system.  As of this writing, Babylon speaks SMDI and a few control protocols of
+the more popular PBX's.  The more interesting GNUComm side of Babylon has yet
+to be developed.
+
+Gatekeeper - In most cases the gatekeeper will be a scripted
+application of Ipswich.  A separate gatekeeper could be developed, but
+we'll see what we can do with Ipswich first.  Unlike Bayonne, which
+deals with user interaction, Ipswich's scripting language is optimized
+to deal with devices and call control.
+
+So we're talking to the systems we need to talk to, but who is in control?
+
+GNUComm generally imposes fairly minimal restrictions on it's
+components.  Some systems specify that all control servers be
+controlled by a Media Gateway Controller, which is a separate entity
+from the control server or "Media Gateway".  There is no generic Media
+Gateway Controller in GNUComm, although any server could implement a
+protocol to talk to a Media Gateway or Control Server (such as MGCP).
+Likewise, there is no Media Server requirement (or even a specific
+Transcoding Server), although such a media server could be integrated.
+There is no requirement that media resources (telephony cards, VoIP
+protocol stacks, etc.) be abstracted with yet another specific
+protocol.  As explained earlier, there is more danger in adding some
+requirements than there is benefit.  There is more than one way to do
+it with GNUComm.
+
+There is more to integration of telecom systems than dial-tone.
+Transaction-oriented information must be handled in a timely, secure,
+fault-tolerant manner.  We should develop a formal method for
+accomplishing this:
+
+Transaction Server (TRiP) - The Transaction Redundancy Protocol Daemon (tripd)
+stores the state and transaction data of all transactions that are
+registered with it.  The TRiP is a set of redundant servers
+that not only share the TRiP data bus, but handle any failures
+occurring on the servers that generate transaction data via TRiP
+scripting, including the TRiP itself.  This is just too cool an idea
+to not work on.  So tripd's scripting language reacts to failure
+events.  For instance, it might respond to the untimely demise of 
+bayonne_1 by launching various scripts on bayonne_2 based on
+the last known state of all bayonne_1's registered transactions.
+
+Real Time Database Server - RTDB is a MLSRTDBMS?  We can't use a
+database that doesn't respond, and it would be nice to have an ACL
+manager.  Examples: When a request to a database times out, RTDBS will
+respond with the time-out and inform the TRiP.  If a foreign bayonne
+server wants an application component out of the database, maybe it
+should be disallowed.  That's the kind of stuff we could use.
+Hopefully we can find some intrepid programmer to take charge of this.
+So Real Time Database server is a Multi-Level Secure Real Time
+Database Management System.  It would be nice to find a new name for
+this and perhaps even nicer to avoid implementing this at all.
+Although I suppose the implementation could be a lot of fun.
+
+So we have a lot of functionality already, but if we stopped
+the design here, we would not be able to communicate with a large
+portion of the GNU project.  Let's address these shortcomings:
+
+CORBA Interface Server - EWOK. Described earlier, this provides a
+gateway to CORBA services.
+
+That's the basic description of the core servers.  Let's cover some of
+final the burning questions you might have:
+
+What do the supporting Libraries look like?
+
+All of the communications protocols and stacks can be made into libraries.  In
+cases where a hardware interface is not required, it makes sense to
+have the option to encapsulate some libraries in a specialized server
+(like maybe a transcoding server).  This gives us the ability to
+compile in with the core server for embedded or turnkey systems, or to
+create specialized servers communicating via commodity protocols.
+
+The obviously useful driver, codec, and client call control libraries
+are being pursued, as well as several specialized libraries and
+servers for interfacing to switches of various types, business logic
+servers, etc.  In the interest of configurability and rapid
+application development, each server should be completely
+programmable, so we will likely split off libraries where distinct
+server-side scripting languages are created.
+
+With all this common code, why not a monolithic control server?
+
+After all, what's the difference between the control servers: Ipswich,
+Bayonne, and Troll?  They will likely all use the same trunk class
+libraries for interfacing to drivers and protocol stacks.  They are
+all scriptable and capable of some call control.  It is possible to
+devise one server to do the work of all three.  However, they are
+functionally and structurally quite separate.  Bayonne speaks to
+people, Ipswich speaks to programs.  The scripting language is totally
+different for Ipswich and Bayonne.  In fact, the Troll Function is a
+script!  The Troll Function is handled by a component that is just a
+scripted application of Ipswich.  
+
+Therefore, the control servers should use each other as a set of
+cooperating processes.  Bayonne and Troll will ask Ipswich to perform
+call control.  Ipswich and Troll will ask Bayonne to present
+interfaces.  Bayonne and Ipswich will ask Troll to gateway traffic
+across nets.  To a large extent, the separation of control servers is
+driven by the desire to support large, highly optimized, distributed
+systems.
+
+4.1.2 Function Example
+----------------------
+
+Functions will be defined in the SDD (M2).  Here's a sample to show the format:
+
+GNUComm Function Entry
+----------------------
+Function: Application Server
+Version: 0.1
+Description:  The GNUComm Application Server interfaces phone users to
+	      software applications in real-time.
+Interfaces Supported:	  
+	SIP: IETF RFC 2543 
+	SNMPv3: IETF RFC 2572 
+	ccscript: GNUComm Spec 1
+	BayonneXML: GNUComm Spec 2
+	Telephony Gateway Interface v2.0: GNUComm Spec 3
+	GNUComm Resource Library API: GNUComm Spec 4
+	TOSI v0.1: GNUComm Spec 5
+Interfaces Required:
+	ccscript
+Required Documentation:
+	SAG: http://www.gnu.org/software/gnucomm/SAG/AppServer.html
+	Test Spec:
+	http://www.gnu.org/software/gnucomm/test/testas.html
+Optional Documentation:
+	User's Guide: N/A	 
+	Application Server Implementers Guide: N/A
+GNU Software Map Entry: GNUComm Application Server	
+
+4.1.3 Function List
+-------------------
+
+With that much out of the way, we can check out the overview diagram
+(Fig 1.) and compare it with the Function List below.  Keep in mind
+that although we list functions and components here, the System Design
+Document (in M2) is the place to find the canonical Function
+Definitions and Component Standards.
+
+GNUComm Functions:
+
+   Core Functions
+	Control Servers	
+		App Server
+		Switch
+		Device Monitor		
+	Business Servers
+		Real Time Database Management Server
+		Queue Server
+	Matrix Servers
+	        Transaction Matrix Server
+		CORBA Gateway Server
+	Base Libraries
+		Client Call Control
+		Resource Driver Library
+		Audio Tools Library
+		Switch Control Protocol Library 
+		VoIP Protocol Abstraction Library
+		Server-Side Telephony Scripting Language Library 
+		ASR Abstraction Library
+   Application Functions
+	Applications
+		Voice Messaging
+		Support Automation	
+		Sales Automation
+		Integrated Messaging
+		Customer Relationship Management
+		Device Control
+		Gatekeeper
+		PBX
+	Application Libraries
+		Core TGI
+		GNUe Integration				
+   Misc
+        Configurator
+        Development Tools
+
+4.2 Gnucomm Components
+----------------------
+
+In this section we will introduce Component Standards and provide
+brief coverage of the components that either exist or we envision will
+aid in the implementation of the design.  We're actually designing the
+system before we finish coding it ;).  Again, Keep in mind that although
+we list functions and components here, the System Design Document (in
+M2) is the place to find the canonical Function Definitions and
+Component Standards.  The following component lists correspond roughly
+to the Function list.
+
+4.2.1 Component Standards
+-------------------------
+
+Primarily in order to avoid "undocumented features", GNUComm will add
+a few standards to the very reasonable GNU coding standards.  That
+means documented code, an administrator's guide, and a test spec before a
+Component can get out of beta.  Not that we're control freaks or
+anything, but when you dial 911, it's got to work.
+
+4.2.2 Gnucomm Core Components 
+-----------------------------
+
+*-> Control Servers:
+
+Bayonne - application server 
+Ipswich - switch 
+Babylon - device monitor
+
+*-> Business Servers:
+
+AQS - Advanced Queue Server 
+RTDB - Real Time Database Server 
+
+*-> Matrix Servers:
+
+TRiP - Transaction Redundancy Protocol Server 
+EWOK - CORBA interface server
+
+*-> Base Libraries:
+
+     +Driver Library - mostly interfaces, we may need to write some drivers.
+     +Audio Tools Library - ccaudio
+     +Client Call Control Protocol Library - TOSI 
+     +Switch Control Protocol Library - a babylon plugin 
+     +VoIP Protocol Abstraction Library - this really springs from a
+     desire to port a SIP stack API interface to H.323.  There are
+     gateways that can make this coding unnecessary, but we'll see
+     where it goes. 
+     +Server-Side Telephony Scripting Language Library - ccscript 
+     +ASR Abstraction Library - as with the VoIP Protocol Library
+     above, we probably won't need to implement these engines because
+     we expect that excellent free software for this purpose will
+     exist by the time we get here.  This is basically a wrapper for
+     use primarily with the application server.  We can only use a
+     minimal set of ASR with this method, so this portion of the
+     design is destined to be completely revamped.
+
+4.2.3 Application Components 
+----------------------------
+
+*-> Application Libraries:
+       Core TGI
+       GNUe Integration     
+
+*-> Applications:
+       Troll - Scripted gatekeeper on top of Ipswich.
+       Integrated Messaging - Just a document.
+       Voicemail - Multi-user voicemail, Bayonne application.
+       PBX - Ipswich Application
+       Support Automation - 
+       Sales Automation - 
+       CRM -
+       Device Control
+       
+*-> Configurator
+       Menu-Driven application for enumeration, interrogation, and
+       configuration of GNUCOMM components on a network.  Text or GUI driven.
+
+*-> Development Tools:
+
+     Web-based visual scripting environment - All servers will be will
+     be scriptable in one or more languages.  Bayonne is scriptable in
+     ccscript.  TRiP will be scriptable to handle system failures.
+     AQS will be scriptable to act on important changes in the status
+     of queue objects.  You get the idea.  The ideal environment would
+     allow at least the boilerplate and simple scripting to be done in
+     a drag and drop manner.  A full debugging environment would be
+     ideal.  A set of test harnesses will be a requirement, although
+     we should probably split that out into another topic.
+
+4.2.4 Miscellaneous Components
+------------------------------
+
+These are somewhat speculative at this time.
+
+*-> Other Specialized servers and libraries:
+
+     Transcoder - could encapsulate the Codec Library 
+     S.100 - Telephony resource daemon ...
+
+*-> Client Applications:
+
+       A GNU softphone:
+       * M1 - first get a simple SIP phone communicating
+       with at least one server (most likely bayonne).  Write the
+       simplest command-line app possible, putting as much into
+       libraries as possible.  
+       * M2 - Abstract SIP layer so that H.323 can plug in.  TOSI-enable
+       this application.
+       * M3 - Orion - The Phone Parts Project - a gui phone with
+       plugable skins and codecs ala xmms.
+
+4.3 Design Goals
+----------------
+
+By way of design exercise, we will now discuss some issues that will
+influence the SDD.
+
+4.5.1 Power:
+------------
+
+An application that does a lot of work with little effort and is very
+flexible can be said to be powerful.  
+
+Placing server logic in a high-level scripting language is a means to
+develop a powerful server.  Script passing between servers is a fairly
+powerful way to move intelligence around.  The gateway to CORBA
+services enables another level of this.
+
+The concept of GNUComm Functions greatly increases the flexibility of
+the system as well.  The ability to drop in an alternative server is
+key.  Consider the standard, well-understood HTTP/CGI interface of web
+servers.
+
+4.5.2 Reliability:
+------------------
+
+One means to achieving 5 minutes per year downtime is to have both hot
+failover and hot replace.  This means that any component of your
+system, if it fails, should not dump calls.  Instead, a backup system
+kicks in, takes over calls real-time, and notifies you that the
+primary system must be swapped out.  In practice, this is rarely
+implemented.  However, various forms of redundancy are implemented.
+There is Application redundancy, which requires two or more systems to
+execute in lockstep (possibly at the kernel level) so that, at best,
+application failures are recoverable.  Application redundancy doesn't
+do anything for you when your kernel locks up.
+
+There is routing redundancy, which the phone company typically
+provides, such that if you have a hunt group spread across several
+systems and one system goes down, the calls active to that system are
+dropped and subsequent calls route to the next available port on
+another system.  Routing redundancy is arguably the most important
+type, since it allows you to perform a graceful shutdown and system
+replacement by accepting no new calls on a given node.  As a first
+step applications need to be designed with an awareness of this type
+of feature.
+
+Then there are the pair of redundancies that we are attempting to
+implement to give us the ability to provide hot swap and hot replace
+on any scale: Data Redundancy and Stream Redundancy.  The foundation
+for these two we already have in the form of a data redundancy bus.
+The idea is this: First we implement a Transaction Redundancy Protocol
+Daemon (the TRiP), which is informed of important state changes and
+out-of-band data transmissions on every call.  If a system goes down,
+the TRiP notices and requests that another system take appropriate
+action based on the last data it had for each active call.  So if a
+credit card transaction needs to be rolled back or something else
+needs to be done, like hang up a phone or call someone back, or tell
+someone how much usage a caller made on his calling card, or
+something, then it gets done.  Stream Redundancy requires that a
+network of cooperating systems place multicast data on a Media bus,
+typically a separate, high-bandwidth network between the cooperating
+nodes.  Stream redundancy can potentially be very expensive, but it
+allows a system to go down at any time without the caller being
+dropped, and sometimes without the call being interrupted at all.
+There are certain situations that you just can't easily help, such as:
+    Your T1 card or the cable running into it gets destroyed.  
+    Your service provider goes down.
+    Nuclear Holocaust.
+    Locusts! 
+    Etc.
+However, if you have very good connectivity, your reliability should
+be very good with such a redundant system.  So that's the general idea.
+
+Hand in hand with redundancy goes the question of how nodes monitor
+one another.  The function of the Matrix Servers require some
+voting logic to be carried out prior to a proclamation of process death.
+Voting logic does not need to be so simplistic as to 
+
+4.3.3 Security:
+---------------
+
+The author refuses to pretend to be a security expert.  We can't force
+anyone to run a program in a secure manner, but we can:
+
+1) Try to design secure programs.
+2) Have a mechanism in place for timely response to bugs, particularly
+security holes.  A lot of projects rely on having a group of security
+minded people audit programs and respond to reports.  To these people,
+discovering and fixing a race-condition attack is really neat.  We
+definitely need some of these people.  
+
+With 1) in mind, GNUComm programs should:
+
+1) Minimize privileges.  The designers should document any assumptions
+they make about the privileges of their software (and attempt to be
+more specific than "We assume here that the kernel is: linux-2.2.x").
+The administrator should know what ID each app is running under.  This
+information should be available to certain users as well.  In reality,
+the good admin will just change all the privileges to suit his/her
+purposes.  The bad admin will just leave things insecure.
+
+2) Minimize trust.  Designers should trust as few resources as
+possible and document what resources their programs will interact
+with.  The administrator should know this information.  A security
+audit of a GNUComm program should reveal any undocumented resource
+usage or misplaced trust.
+
+and,
+
+3) Minimize bad data.  Sometimes even trustworthy resources spew bad
+data.  Assume all data is bad unless you actually figure out that it's
+good.  At least do bounds checking.  If you refuse to write code to
+verify data and do bounds checking, you had better document your
+reasons.
+
+To meet GNUComm Component Standards, documentation of these issues
+should be made available, possibly through a recurring security audit
+mechanism.  Note to self: build a security audit team!
+
+4.3.4. Ease of Use:
+-------------------
+
+This has not received nearly enough mention.  Individual applications
+require only user guides, but nothing guarantees ease of use of an
+application.  There is a world of difference between an application
+with a consistent, simple user interface and the typical IVR
+ or Dialog-based application.  If we do one thing, we should rid the
+ world of poorly designed speech applications.  There has been ample
+ research done to develop a GNUComm application user interface guide
+ to help this happen.
+
+As far as the developers are concerned, tools are their forte.  One
+usually doesn't have to try to hard to find developers willing to
+write development tools.  The back-end logic is relatively benign, but
+there is a learning curve to the specialized scripting that makes
+GNUComm applications run.  Tools to make these languages simpler to
+code are always helpful for beginners.
+
+4.3.5 Documentation:
+--------------------
+
+By this point, the focus on documentation should be apparent.
+Every section in this document embeds a documentation requirement of
+some kind.  System Administrator's Guides are requirements for
+Components, as well as code documentation and test specs.
+
+There are a large number of optional docs that we would, of course,
+like to see written.  We'll watch closely to see if the absence of
+something like the Application User Interface Guide becomes problematic.
+
+5.0 How you can help:
+---------------------
+
+Examples of things we need:
+
+Writers to help with documentation, and translations of documentation.
+
+A complete international prompt library.  Lend us your voice.
+
+A library of voice applications to work with our components; we can
+never get enough of these.  Itching to control your home, set up a meeting, or get a wake up call?  GNUComm will take your breakfast order and scramble your eggs if you have the coding itch.
+
+Take a look at the web site to see who is working on what.  There are
+probably several Functions unfilled by components and several
+components with no owner or too few owners.
+
+Examples of things you can do:
+
+Write one of the things we need.  Document one of the things we have.
+Test or add features.  Use GNUComm commercially.  Join in the
+developers discussion.
+
+Copyright 2001 - The Free Software Foundation
+
+</tt></pre>
+
+Return to <A HREF="/home.html">GNU's home page</A>.
+<P>
+
+Please send FSF &amp; GNU inquiries &amp; questions to 
+
+<A HREF="mailto:gnu@gnu.org"><EM>gnu@gnu.org</EM></A>.
+There are also <A HREF="/home.html#ContactInfo">other ways to contact</A> the FSF.
+<P>
+
+Please send comments on these web pages to
+
+<A HREF="mailto:webmasters@gnu.org"><EM>webmasters@gnu.org</EM></A>,
+send other questions to <A HREF="mailto:gnu@gnu.org"><EM>gnu@gnu.org</EM></A>.
+<P>
+Last updated: August 27, 2001
+<P>
+<p>
+    <a href="http://validator.w3.org/check/referer"><img border=0
+        src="http://validator.w3.org/images/vh40"
+        alt="Valid HTML 4.0!" height=31 width=88></a>
+</p>
+Copyright (C) 2000 Free Software Foundation, Inc.,
+59 Temple Place - Suite 330, Boston, MA  02111,  USA
+<P>
+<HR>
+</BODY>
+</HTML>
