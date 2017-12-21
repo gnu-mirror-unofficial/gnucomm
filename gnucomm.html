@@ -1,109 +1,231 @@
 <!--#include virtual="/server/header.html" -->
 <!-- Parent-Version: 1.79 -->
 <title>GNU Telecom Subsystem - GNU Project - Free Software Foundation</title>
+<style type="text/css" media="print,screen"><!--
+#content { max-width: 53em; margin: auto; }
+.navlinks p {
+   text-align: center;
+   line-height: 1.8em;
+   padding: 0.1em 1em;
+   border: .1em solid #bbb;
+}
+.navlinks a { line-height: 1.6em; padding: 0 .2em; }
+#content img { width: 3em; float: left; margin-right: 1em; }
+.summary { width: auto; margin-top: 2.2em; }
+.summary ul { margin-left: 10%; }
+@media (min-width: 38em) {
+  .summary { float: right; width: 15em; margin: 1.3em 0 1em 2em; }
+  .summary ul { margin-left: 1.5%; }
+}
+--></style>
 <!--#include virtual="/server/gnun/initial-translations-list.html" -->
 <!--#include virtual="/server/banner.html" -->
-<h2 id="TOC">GNU Telecom Subsystem (GNU Telephony)</h2>
+<img src="bayonne-logo" alt="Bayonne logo" />
+<h2>GNU Telecom Subsystem (GNU&nbsp;Telephony)</h2>
 
-<div class="announcement"><p>GNU SIP Witch Introduced</p>
-<p>SIP Witch is an official package of the GNU Project as of August 10th 2007.
+<div class="navlinks">
+  <p>
+  &nbsp;GNUComm&nbsp;
+  &nbsp;<a href="/software/bayonne/bayonne.html">Bayonne</a>&nbsp;
+  &nbsp;<a href="/software/sipwitch/sipwitch.html">SIP&nbsp;Witch</a>&nbsp;
+  &nbsp;<a href="/software/commoncpp/commoncpp.html">[u]Common&nbsp;C++</a>&nbsp;
+  &nbsp;<a href="/software/ccscript/ccscript.html">ccScript</a>&nbsp;
+  &nbsp;<a href="/software/ccaudio/ccaudio.html">ccAudio2</a>&nbsp;
+  &nbsp;<a href="/software/ccrtp/ccrtp.html">ccRTP</a>&nbsp;
+  &nbsp;<a href="/software/ccrtp/zrtp.html">ZRTP</a>&nbsp;
+  &nbsp;<a href="/software/ccrtp/zrtp4j.html">ZRTP4J</a>&nbsp;
+  </p>
+</div>
+
+<div id="contents" class="summary">
+<h3 style="display: none">Contents</h3>
+<ul>
+  <li><a href="#Whatis">What is GNUComm?</a></li>
+  <li><a href="#Bayonne">What is GNU Bayonne?</a></li>
+  <li><a href="#SIPWitch">What is GNU SIP Witch?</a></li>
+  <li><a href="#overview">GNUComm System Design Overview</a></li>
+  <li><a href="#components">GNUComm Components</a></li>
+  <li><a href="download.html">Get the software</a></li>
+  <li><a href="#mailinglist">Mailing Lists and Other Resources</a></li>
+  <li><a href="#contact">Contact Information</a></li>
+</ul>
+<hr style="display: none" />
+</div>
+
+<h3 id="Whatis">What is GNUComm?</h3>
+
+<p>GNUComm is the Telecom subsystem of the GNU Project.  The goal of GNUComm
+is to deliver scalable telephony services for current and next generation
+telephone networks using entirely free software on the GNU system.</p>
+
+<p>The GNUComm system covers the following GNU projects: <a
+href="https://sv.gnu.org/projects/bayonne">Bayonne</a>, <a
+href="https://sv.gnu.org/projects/sipwitch">SIP Witch</a>, <a
+href="https://sv.gnu.org/projects/commoncpp">Commoncpp</a> (Common&nbsp;C++
+and uCommon), <a
+href="https://sv.gnu.org/projects/ccaudio">ccAudio2</a>, <a 
+href="https://sv.gnu.org/projects/ccscript">ccScript</a>, <a
+href="https://sv.gnu.org/projects/ccrtp">ccRTP</a>, and <a
+href="https://github.com/wernerd/ZRTPCPP">ZRTP/ZRTP4J</a>.
+The web pages of the corresponding packages can be accessed from the menu
+above.</p>
+
+<p>SIP Witch and Bayonne also use the <a
+href="/software/osip/">GNU oSIP</a> and <a
+href="https://savannah.nongnu.org/projects/exosip/">eXosip</a> libraries.</p>
+
+<h3 id="Bayonne">What is GNU Bayonne?</h3>
+
+<p><a href="/software/bayonne/bayonne.html">GNU Bayonne</a> is the telephone
+server of the GNU Project.  It offers scalable
+media and scripted voice application services for SIP and H.323 networks as
+well as for traditional PSTN and ISDN services.  GNU Bayonne may be used
+stand-alone to deliver carrier hosted or premise application services behind
+existing switching equipment and standard compliant VOIP platforms, or together
+with GNU SIP Witch and perhaps Troll to offer complete VOIP phone systems.</p>
+
+<h3 id="SIPWitch">What is GNU SIP Witch?</h3>
+
+<p><a href="/software/sipwitch/sipwitch.html">GNU SIP Witch</a> is the VOIP
+call, provisioning, and feature server of the GNU Project.  It offers network scalable services through SIP.  GNU SIP Witch only offers registration
+services and only performs destination selection and routing. Since it uses
+SIP to resolve media streaming by endpoints, GNU SIP Witch is not inhibited
+by restrictive codec patents, nor does it impose additional media latency
+in VOIP networks.</p>
+
+<blockquote>
+<h4>Press release: GNU SIP Witch Introduced&nbsp;<span
+class="skip">[&nbsp;<a href="#overview">skip</a>&nbsp;]</span></h4>
+<p>SIP Witch is an official package of the GNU Project as of August 10th, 2007.
 GNU SIP Witch is also part of GNU Telephony &amp; the GNU Telecom subsystem.</p>
+
 <p>GNU SIP Witch is a call and registration server for the SIP protocol. As a call
 server it services call registration for SIP devices and destination routing
 through SIP gateways.  GNU SIP Witch does not perform codec operations or media
-proxying and thereby enables SIP endpoints to directly peer negotiate call
-setting and process peer to peer media streaming even when when multiple SIP
+proxying and thereby enables SIP endpoints to directly peer-negotiate call
+setting and process peer-to-peer media streaming even when multiple SIP
 Witch call nodes at multiple locations are involved.  This means GNU SIP Witch
 operates without introducing additional media latency or offering a central
 point for media capture.</p>
+
 <p>GNU SIP Witch is designed to support network scaling of telephony services,
 rather than the heavily compute-bound solutions we find in use today.  This
 means a call node has a local authentication/registration database, and this
 will be mirrored, so that any active call node in a cluster will be able to
 accept and service a call.  This allows for the possibility of live failover
 support in the future as well.</p>
-<p>GNU SIP Witch is not a SIP "router", and does not try to address the same
-things as a project like iptel "Ser".  GNU SIP Witch is being designed to
-create on-premise SIP telephone systems, telecenter servers, and Internet
-hosted SIP telephone systems.  One important feature will include use of URI
-routing to support direct peer to peer calls between service domains over the
-public internet without needing mediation of an intermediary "service provider"
-so that people can publish and call sip: uri's unconstrained.  GNU SIP Witch is
-about freedom to communicate and the removal of artifical barriers and
-constraints whether imposed by monopoly service providers or by governments.</p>
-<p>GNU SIP Witch depends on the UCommon library, which may merge with and become
-GNU Common C++ 2.0 later this year or early next year.  CVS for and new
-distributions of UCommon will be found in the GNU Telecom project on an interim
-basis until then.  GNU SIP Witch also uses libeXosip2 and GNU oSIP, and these
+
+<p>GNU SIP Witch is not a SIP &ldquo;router,&rdquo; and does not try to
+address the same things as a project like Iptel &ldquo;Ser.&rdquo;  GNU SIP
+Witch is being designed to create on-premise SIP telephone systems, telecenter
+servers, and Internet hosted SIP telephone systems.  One important feature will
+include use of URI routing to support direct peer-to-peer calls between service
+domains over the public internet without needing mediation of an intermediary
+&ldquo;service provider&rdquo; so that people can publish and call
+&nbsp;<em><code>sip:</code></em> URI's unconstrained.  GNU SIP Witch is about
+freedom to communicate and the removal of artifical barriers and constraints,
+whether imposed by monopoly service providers or by governments.</p>
+
+<p>GNU SIP Witch depends on the uCommon library, which is progressively merging
+with GNU Common C++ 2.0; the latest release (ucommon-7.0.0) still contains
+both libraries.  GNU SIP Witch also uses libeXosip2 and GNU oSIP, and these
 may be found at their respective sites.  GNU SIP Witch is licensed under the
-GNU General Public License V3 or later.</p>
-</div>
-<h3 id="Whatis">What is GNUCOMM?</h3>
-<p>GNUCOMM is the Telecom subsystem of the GNU Project.  The goal of GNUCOMM
-is to deliver scalable telephony services for current and next generation
-telephone networks using entirely free software on the GNU
-system.</p>
-<h3 id="Bayonne">What is GNU Bayonne?</h3>
-<p>GNU Bayonne is the telephone server of the GNU Project.  It offers scalable
-media and scripted voice application services for SIP and H.323 networks as
-well as for traditional PSTN and ISDN services.  GNU Bayonne may be used
-stand-alone to deliver carrier hosted or premise application services behind
-existing switching equipment and standard compliant VOIP platforms, or together
-with GNU SIP Witch and perhaps Troll to offer complete VOIP phone systems.</p>
-<h3 id="SIPWitch">What is GNU SIP Witch?</h3>
-<p>GNU SIP Witch is the VOIP call, provisioning, and feature server of the GNU 
-Project.  It offers network scalable services through SIP.  GNU SIP Witch only 
-offers registration services and only performs destination selection and 
-routing. GNU SIP Witch uses SIP to resolve media streaming by endpoints.  This
-means GNU SIP Witch is neither inhibited by restrictive codec patents nor 
-imposes additional media latency in VOIP networks.</p>
+GNU General Public License Version&nbsp;3 or later.</p>
+</blockquote>
+
 <h3 id="overview">GNUComm System Design Overview</h3>
-<p><a href="overview.html" name="overview">Version 0.6 of the GNUComm System Design Overview</a> is now available.  It is currently being maintained by rsb.  Check it out.</p>
+
+<p><a href="overview.html">Version 0.6 of the GNUComm System
+Design Overview</a> is available.  It is currently being maintained by
+rsb.  Check it out.</p>
 <p>This needs to be revised...</p>
+
 <h3 id="components">GNUComm Components</h3>
-<p>Release versions of some GNUComm Components are already available:</p>
-<p>Active Projects:</p>
-<ul>
-<li>GNU Bayonne - Telephony Application and Media Services - dyfet</li>
-<li>GNU SIP Witch - SIP calling and telephone feature services - dyfet</li>
-</ul>
-<p>Inactive Projects:</p> 
-<ul>
-<li>Babylon - Telephony Device Monitoring - dyfet</li>
-<li>TOSI - Client Call Control System - visitor</li>
-</ul>
-<p>Proposed Projects:</p>
-<ul>
-<li>Troll - Multiprotocol gateway services - dyfet</li>
-<li>GNU Phone - Secure Telephone user agent for the GNU Project - ??</li>
-<li>gsipwitch - GNOME user services for GNU SIP Witch</li> 
-<li>TRiP - Transaction Redundancy Protocol System - visitor</li>
-</ul>
-<p>Applications:</p>
-<ul>
-<li>Voice Mail - Multi-user messaging application - rsb</li>
-<li>Support Automation -  Tele-support application - rsb</li>
-<li>Sales Automation - Tele-sales application - rsb</li>
-</ul>
-<h3 id="getsoftware">Get the Software</h3>
-<p>GNU Bayonne and all related packages may be found at ftp.gnu.org.  GNU
-SIPWitch is available only from project cvs at the moment, but we expect
-an initial distribution sometime before the end of the year.  All GNUCOMM
-&amp; GNU Telephony software will be offered licensed under the GNU General
-Public License V3 or later.</p>
+
+<p>Release versions of some GNUComm components are available:</p>
+<dl>
+<dt>Active Projects</dt>
+<dd><ul>
+  <li>GNU Bayonne - Telephony Application and Media Services - dyfet</li>
+  <li>GNU SIP Witch - SIP calling and telephone feature services - dyfet</li>
+</ul></dd>
+
+<dt>Inactive Projects</dt> 
+<dd><ul>
+  <li>Babylon - Telephony Device Monitoring - dyfet</li>
+  <li>TOSI - Client Call Control System - visitor</li>
+</ul></dd>
+
+<dt>Proposed Projects</dt>
+<dd><ul>
+  <li>Troll - Multiprotocol gateway services - dyfet</li>
+  <li>GNU Phone - Secure Telephone user agent for the GNU Project - ??</li>
+  <li>gsipwitch - GNOME user services for GNU SIP Witch</li> 
+  <li>TRiP - Transaction Redundancy Protocol System - visitor</li>
+<!--
+  <li><a href="https://web.archive.org/web/20141002041709/http://www.gnutelephony.org/index.php/Bayonne_2_Dialogic_Drivers">
+  Bayonne 2 Dialogic Drivers</a> (archived)</li>
+  <li><a href="https://web.archive.org/web/20141006044750/http://www.gnutelephony.org:80/index.php/Basic_outline_for_GNU_SIP_Witch_Portal">
+  Basic outline for GNU SIP Witch Portal</a> (archived)</li>
+  <li><a href="https://web.archive.org/web/20150304221647/http://www.gnutelephony.org:80/index.php/GNU_Telephony_Open_Embedded">
+  GNU Telephony Open Embedded</a> (archived)
+  <li>GNU Free Call:
+  <a href="https://web.archive.org/web/20150514121054/http://www.gnutelephony.org/index.php/GNU_Free_Call_Announcement">
+  Announcement</a>,
+  <a href="https://web.archive.org/web/20130702232642/http://www.gnutelephony.org/index.php/GNU_Free_Call_Awarded">
+  GNU Free Call Awarded</a>,
+  <a href="https://web.archive.org/web/20141006054358/http://www.gnutelephony.org:80/index.php/GNU_Free_Call_Roadmap">
+  Roadmap</a> (archived)</li>
+  <li><a href="https://web.archive.org/web/20150304085123/http://www.gnutelephony.org:80/index.php/Secure_Call">
+  Secure Call</a> (archived)</li>
+  <li><a href="https://web.archive.org/web/20141002101000/http://www.gnutelephony.org/index.php/CAPE">
+  CAPE</a> (archived)</li>
+-->
+</ul></dd>
+
+<dt>Applications</dt>
+<dd><ul>
+  <li>Voice Mail - Multi-user messaging application - rsb</li>
+  <li>Support Automation -  Tele-support application - rsb</li>
+  <li>Sales Automation - Tele-sales application - rsb</li>
+</ul></dd>
+</dl>
 
 <h3 id="mailinglist">Mailing Lists and Other Resources</h3>
-<p>The canonical set of GNU mailing lists have been set up for GNUCOMM:</p>
+
+<p>The canonical set of GNU mailing lists have been set up for GNUComm:</p>
 <ul>
-<li><b>bug-gnucomm</b> is the developers list: <a href="mailto:bug-gnucomm@gnu.org">&lt;bug-gnucomm@gnu.org&gt;</a>.  Subscribe to this list by sending the word "subscribe" in the body of an otherwise empty message to <a href="mailto:bug-gnucomm-request@gnu.org">&lt;bug-gnucomm-request@gnu.org&gt;</a>.</li>
-<li><b>help-gnucomm</b> is the users list: <a href="mailto:help-gnucomm@gnu.org">&lt;help-gnucomm@gnu.org&gt;</a>.  Subscribe to this list by sending the word "subscribe" in the body of an otherwise empty message to <a href="mailto:help-gnucomm-request@gnu.org">&lt;help-gnucomm-request@gnu.org&gt;</a>.</li>
-<li><b>info-gnucomm</b> is the moderated announcements list: <a href="mailto:info-gnucomm@gnu.org">&lt;info-gnucomm@gnu.org&gt;</a>.  Subscribe to this list by sending the word "subscribe" in the body of an otherwise empty message to <a href="mailto:info-gnucomm-request@gnu.org">&lt;info-gnucomm-request@gnu.org&gt;</a>.</li>
+  <li><strong>bug-gnucomm</strong> is the developers list: <a
+  href="mailto:bug-gnucomm@gnu.org">&lt;bug-gnucomm@gnu.org&gt;</a>.
+  Subscribe to this list by sending the word &ldquo;subscribe&rdquo; in the
+  body of an otherwise empty message to <a
+  href="mailto:bug-gnucomm-request@gnu.org">
+  &lt;bug-gnucomm-request@gnu.org&gt;</a>.</li>
+
+  <li><strong>help-gnucomm</strong> is the users list: <a
+  href="mailto:help-gnucomm@gnu.org">&lt;help-gnucomm@gnu.org&gt;</a>.
+  Subscribe to this list by sending the word &ldquo;subscribe&rdquo; in the
+  body of an otherwise empty message to <a
+  href="mailto:help-gnucomm-request@gnu.org">
+  &lt;help-gnucomm-request@gnu.org&gt;</a>.</li>
+
+  <li><strong>info-gnucomm</strong> is the moderated announcements list: <a
+  href="mailto:info-gnucomm@gnu.org">&lt;info-gnucomm@gnu.org&gt;</a>.
+  Subscribe to this list by sending the word &ldquo;subscribe&rdquo; in the
+  body of an otherwise empty message to <a
+  href="mailto:info-gnucomm-request@gnu.org">
+  &lt;info-gnucomm-request@gnu.org&gt;</a>.</li>
 </ul>
-<p>We also maintain a GNU Telephony <a href="http://www.gnutelephony.org">wiki</a>.</p>
-<h3 id="cvs">CVS Access</h3>
-<p><a href="cvsdirections.html">These instructions</a> are available for anonymous cvs access.</p>
-<h3 id="contact">Contact information</h3>
-<p>The current coordinators for the project are <a href="mailto:richbodo@gmaol.com">&lt;richbodo at gmail dot com&gt;</a> and <a href="mailto:dyfet@gnu.org">&lt;dyfet at gnu dot org&gt;</a> </p>
+<!--
+<p>We also have a GNU Telephony <a
+href="https://web.archive.org/web/20070826202252/http://wiki.gnutelephony.org/index.php/Main_Page">
+wiki</a> (archived at the Wayback Machine).</p>
+-->
+<h3 id="contact">Contact Information</h3>
+
+<p>The current coordinators for the project are <a
+href="mailto:richbodo@gmaol.com">&lt;richbodo at gmail dot com&gt;</a> and <a
+href="mailto:dyfet@gnu.org">&lt;dyfet at gnu dot org&gt;</a>.</p>
 
 </div><!-- for id="content", starts in the include above -->
 <!--#include virtual="/server/footer.html" -->
@@ -139,7 +261,7 @@ of this article.</p>
      There is more detail about copyright years in the GNU Maintainers
      Information document, www.gnu.org/prep/maintain. -->
 
-<p>Copyright &copy; 1998, 2001-2007 Free Software Foundation, Inc.</p>
+<p>Copyright &copy; 1998, 2001-2007, 2017 Free Software Foundation, Inc.</p>
 
 <p>This page is licensed under a <a rel="license"
 href="http://creativecommons.org/licenses/by-nd/4.0/">Creative
@@ -149,11 +271,10 @@ Commons Attribution-NoDerivatives 4.0 International License</a>.</p>
 
 <p class="unprintable">Updated:
 <!-- timestamp start -->
-$Date: 2016/05/13 07:03:42 $
+$Date: 2017/12/21 17:55:28 $
 <!-- timestamp end -->
 </p>
 </div>
 </div>
 </body>
 </html>
-
