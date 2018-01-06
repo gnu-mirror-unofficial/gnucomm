@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<meta name="DC.title" content="gnu.org" />
+<link rel="stylesheet" href="/software/bayonne/css/guide.css" media="print,screen" />
+<link rel="stylesheet" href="/mini.css" media="handheld" />
+<title>Free Call Announcement - GNU Telephony - GNU Project - Free Software
+Foundation</title>
+</head>
+
+<body>
+<p class="toplinks">
+<a href="/software/gnucomm/freecall-awarded.html">Free&nbsp;Call&nbsp;Awarded</a>&nbsp;
+<a href="/software/gnucomm/freecall-roadmap.html">Free&nbsp;Call&nbsp;Roadmap</a>&nbsp;
+<a href="/software/gnucomm/gnucomm.html#content">GnuComm</a></p>
+
+<div class="title">
+<img src="/software/gnucomm/bayonne-logo.png" alt="Bayonne logo" />
+<div class="text">
+<h1>GNU Free Call Announcement</h1>
+</div></div>
+
+<p><i>Free as in freedom, and free as in no cost, too!</i></p>
+
+<p>GNU Free Call is a new project to develop and deploy secure self-organized
+communication services worldwide for private use and for public administration.
+We use the open standard SIP protocol and GNU SIP Witch to create secured
+peer-to-peer mesh calling networks, and we welcome all participation in our
+effort.</p>
+
+<h2>Who</h2>
+
+<ul>
+ <li>Haakon Eriksen – Project Coordinator - haakon.eriksen@far.no</li>
+ <li>David Sugar – Project Architect - dyfet@gnu.org</li>
+</ul>
+
+<h2>What</h2>
+
+<p>Our goal is to make GNU Free Call ubiquitous in a manner and level of
+usability similar to Skype, that is, usable on all platforms, and directly by
+the general public for all manner of secure communication between known and
+anonymous parties, but without requiring a central service provider to register
+with, without using insecure source secret binary protocols that may have
+back-doors, and without having network control points of any kind that can be
+exploited or abused by external parties. By doing so as a self organizing
+meshed calling network, we further eliminate potential service control points
+such as through explicit routing peers even if networks are isolated in civil
+emergencies.</p>
+
+<p>We do recognize this project has significant long term social and political
+implications. It also offers potentially essential utility in public service by
+enabling the continuation of emergency services without requiring existing
+communication infrastructure. There are many ordinary public service uses, such
+as the delivery of eHealth services, as well as medical, and legal
+communication, where it is essential to treat all with equal human dignity by
+maintaining privacy regardless of race, religion, or political affiliation.
+Equally important is the continuation of emergency medical services even when
+existing infrastructure is no longer available or has been deliberately
+disabled.</p>
+
+<h2>How</h2>
+
+<p>Initially we will extend sipwitch to become aware of peer nodes by
+supporting host caches, and then support publishing of routes to connected
+peers. This work builds upon the already existing routing foundation in
+sipwitch itself. The use of host caches is a mechanism used in older p2p
+networks, it is generally well understood, it would meet the initial goals of
+establishing a self organized mesh network, and it is rather easy to initially
+implement to fully demonstrate the potential of sipwitch as a mesh calling
+system. More advanced methodologies can then be added later on.</p>
+
+<p>Related to this goal is having sipwitch operate as a SIP mediation service
+for desktops users and IP enabled cell phones such as Android. This introduces
+the needs for users to be able to “pilot” their local sipwitch instance through
+a desktop and cell phone gui, whether to see what calls are being placed
+through it, or to see the verification status of secure key exchange. There are
+today IPC interfaces in sipwitch to allow for desktop integration, but a
+specific GUI to use these interfaces and present server and call states in a
+manner for people to understand still needs to also be constructed, and hence
+this too is part of the plan of work for this project.</p>
+
+<p>In addition we will be extending GNU SIP Witch to offer secure VoIP proxy.
+Much like what was done initially by Phil Zimmerman to develop ZRTP using
+zfone, this mode of operation will enable development of key elements of a
+secure infrastructure without having to also initially create new SIP user
+agent applications. By offering secure proxy through a SIP Witch instance
+running at the endpoint, any existing SIP standard compliant softphone or
+device will be able to establish a secure connection to another standard
+compliant SIP device or SIP peer that is using GNU SIP Witch at the
+destination.</p>
+
+<p>This project's definition of secure media is similar to Zimmermann's work on
+ZRTP, in that we assure there is no forwarding knowledge by using uniquely
+generated keys for each communication session. Furthermore, we will use GNU
+Privacy Guard (GPG) to fully automate session validation. This will be done by
+extending the SIP protocol to exchange public keys for establishing secure
+media sessions that will be created by each instance of SIP Witch operating at
+the end points on behalf of local SIP user agents, and then verifying there is
+no man-in-the-middle by exchanging GPG signed hashes of the session keys that
+were visible at each end.</p>
+
+<h2>Why</h2>
+
+<ol>
+ <li>Why GNU SIP Witch? GNU SIP Witch is a destination router for the SIP
+protocol. This means it is primarily concern is not in making things
+interconnect “with” the SIP Witch Server, like say something like Asterisk does
+very well, but rather instead is designed to enable two (or more) endpoints to
+find and then directly connect with each other. By handing off media operations
+directly to communicating endpoints, GNU SIP Witch requires a minimum of system
+resources, making it very suitable even for low end embedded routers, as well
+as for freedom boxes, shared virtual server instances, desktop systems, and IP
+connected cell phones such as Android, rather than requiring a dedicated
+server.</li>
+
+ <li>Why on the desktop and cell phone? Ultimately we want to be close to the
+user so that no third party or external service must be connected to before
+establishing secure sessions since we are using unmodified SIP clients. If an
+external party is required, the connection between the SIP client and that
+external service would of course be completely insecure. A user with their own
+local infrastructure can of course also run a single sipwitch server, such as
+on a freedom box or a virtual machine, to meet all their local connectivity
+needs rather than doing so on each machine or device. An organization can also
+run a sip witch server on a completely remote site, such as a public portal,
+when interconnecting existing security enabled SIP clients, such as SIP
+Communicator and Twinkle, which support the ZRTP protocol stack. Another side
+benefit of having SIP Witch on the desktop and cell phone is that as we develop
+SIPWitch NAT services, it can act as a single point of contact for mediating
+all SIP protocol services for a user, as well as offering a single place where
+NAT support and mobile re-connection will only need to be configured and
+implemented once, rather than in each SIP client separately.</li>
+
+ <li>How to get GNU SIP Witch? GNU SIP Witch is formally distributed as a
+package that is part of the GNU Project. It is also packaged in a number of
+popular GNU/Linux distributions, including Ubuntu and Fedora, GNU SIP Witch can
+also be built on most BSD systems from source, including OS&nbsp;X, and
+supports compilation on Microsoft Windows as well.</li>
+
+ <li>How to configure GNU SIP Witch? In the past GNU SIP Witch has been
+difficult to configure, even for ordinary uses. To address this issue we are
+hoping to finally introduce a model public portal that anyone will also be able
+to download and use to construct and configure a SIP Witch site or private
+service. To address the needs of peer-to-peer calling, we are introducing a
+desktop and cell phone GUI interface.</li>
+
+ <li>Why do I need a local SIP account to use it? Since GNU SIP Witch is a SIP
+service one needs a SIP identity to authenticate yourself to your own local SIP
+server. However, we wish to eliminate manually creating local SIP users by
+offering to automatically detect and generate a local user account with a
+matching SIP user agent configuration for you as a single click operation from
+the new GUI. Initial clients proposed for this include Android CSipSimple,
+which is also being extended with GNU ZRTP, the Twinkle Softphone, and perhaps
+SIP Communicator, which uses the GNU ZRTP4J stack. Other clients, like GNOME
+Empathy and Linphone, may also be supported in this way as well.</li>
+
+ <li>How can I participate? We have a wiki site used for GNU Telephony as a
+whole (<a
+href="https://web.archive.org/web/20150514121054/http://www.gnutelephony.org/">
+http://www.gnutelephony.org/</a>) [archived], as well as a mailing list for
+sipwitch itself (&lt;sipwitch-devel@gnu.org&gt;). In addition, to discuss core
+architecture, privacy issues, and social consequences, we have another mailing
+list &lt;gnucomm-privacy@gnu.org&gt;.</li>
+</ol>
+
+<hr class="thin" />
+<p>This page was retrieved from the Wayback Machine archive of the <a
+href="https://web.archive.org/web/20150514121054/http://www.gnutelephony.org/index.php/GNU_Free_Call_Announcement">GNU Telephony website</a> (licensed under the <a
+href="/licenses/fdl-1.3.html">Free Documentation License&nbsp;1.3</a>):</p>
+
+</body>
+</html>

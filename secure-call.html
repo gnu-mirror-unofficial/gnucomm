@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<meta name="DC.title" content="gnu.org" />
+<link rel="stylesheet" href="/software/bayonne/css/guide.css" media="print,screen" />
+<link rel="stylesheet" href="/mini.css" media="handheld" />
+<title>Secure Call - GNU Telephony - GNU Project - Free Software
+Foundation</title>
+</head>
+
+<body>
+<p class="toplinks">
+<a href="/software/sipwitch/sipwitch.html#content">SIP Witch</a>&nbsp;
+<a href="/software/gnucomm/gnucomm.html#content">GnuComm</a></p>
+
+<div class="title">
+<img src="/software/gnucomm/bayonne-logo.png" alt="Bayonne logo" />
+<div class="text">
+<h1>Secure Call</h1>
+<p><em>&ldquo;Privacy is ultimately about liberty while surveillance is always about&nbsp;control.&rdquo;</em></p>
+</div></div>
+
+<h2 class="TC">Contents</h2>
+<ul class="TofC h">
+ <li><a href="#introduction">Introduction</a></li>
+ <li><a href="#elements">Elements of Secure Calling</a>
+  <ul>
+   <li><a href="#issues">Issues and Limitations</li>
+  </ul>
+ </li>
+ <li><a href="#status">Project Status</a>
+  <ul>
+   <li><a href="#phase1">Phase 1 - The Stack</li>
+   <li><a href="#phase2">Phase 2 - The Switch</li>
+   <li><a href="#phase3">Phase 3 - Domain Calling</li>
+   <li><a href="#phase4">Phase 4 - Worldwide Anonymous Calling</li>
+  </ul>
+ </li>
+ <li><a href="#downloads">Current Downloads</a></li>
+ <li><a href="#comments">Todo and User Comments</a></li>
+ <li><a href="#resources">Related Resources</a></li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The GNU Telephony Secure Calling initiative is intended to make passive
+voice communication intercept a thing of the past, and thereby help both
+national governments, and private corporations, which at present seem unable to
+comply with their obligations to the public that they serve and with the law of
+the land. While it is true that technological means for mass communication
+intercept has grown with incremental improvements in communication technology,
+the means to apply and use techniques to counter these abuses on a large scale
+have also grown. By making &ldquo;secure by design&rdquo;, security
+capabilities simple to embed, and by enabling the largest possible
+participation in developing such solutions through free software, we hope to
+break down those remaining barriers that prevent secure voice telephony from
+being widely deployed.</p>
+
+<h2 id="goals">Goals</h2>
+<ul>
+ <li>To empower people, individually and collectively, to communicate and
+ collaborate privately and securely in real-time worldwide.</li>
+
+ <li>To establish secure communications as the default communication
+infrastructure.</li>
+
+ <li>To enable secure anonymous communication worldwide and protect users who
+exercise their basic human freedom of privacy.</p>
+
+ <li>To provide secure communication services universally on all computing
+platforms</li>
+</ul>
+
+<h2 id="elements">Elements of Secure Calling</h2>
+
+<p>There are I perceive three elements to secure calling. The first and most
+obvious is securing the voice (bearer channel) itself. To achieve this, we
+initially offer GNU ccRTP 1.5.0. GNU ccRTP now offers basic voice encryption
+capability using the GNU gcrypt library and implements the Secure RTP profile
+as per <a href="https://tools.ietf.org/html/rfc3711">RFC 3711</a>.</p>
+
+<p>In addition to SRTP capabilities starting in GNU ccRTP 1.5, we have an
+expansion library, libzrtpcpp. This is a library that extends ccRTP with direct
+support for the <a
+href="http://www.philzimmermann.com/zfoneproject/EN/faq/index.html">ZRTP
+protocol</a>. The following <a
+href="http://www.infosecwriters.com/text_resources/pdf/Zfone_SSotillo.pdf">
+document</a> gives some background information about <a
+href="/software/ccrtp/zrtp-faq.html">ZRTP</a>. Have a look at Phil Zimmermann's
+<a href="http://zfoneproject.com/index.html">Zfone</a> project to get
+first-hand information from the originator of ZRTP. While Zfone operates as an
+external service (bump-in-the-wire) that needs to listen and intercept the
+signalling protocol (SIP) of the clients in order to apply ZRTP and SRTP, GNU
+ZRTP (libzrtpcpp) can be used to create softphone clients and VOIP servers that
+natively speak ZRTP without needing an external service. Programs that use GNU
+ZRTP are not required to use a signalling protocol to use ZRTP and to set up a
+secure RTP session. The first example is the <a
+href="http://www.twinklephone.com/">Twinkle</a> softphone client, starting with
+release 0.9.0.</p>
+
+<p>One of the reason's for using ZRTP in particular is its management and use
+of self-generated keys, rather than requiring certificate authorities. This
+also means that the user is not required to obtain or manage secret keys or
+certificates nor has any knowledge of the underlying communications protocols.
+Hence, neither the user, nor an issuing authority, offers any ability to obtain
+backdoors into or the means to compromise ZRTP sessions.</p>
+
+<p>While securing the voice channel is fundamental to privacy, it is not in
+itself sufficient to assure true privacy from passive observance. As we have
+learned, given the hunger for data-mining that some national governments and
+private corporations have, it is equally important to secure the signalling and
+call detail information from external observation.</p>
+
+<p>With GNU oSIP&nbsp;2 and libeXosip&nbsp;2, we have some capability to apply
+SIP over TCP with TLS. This is sufficient to secure session information from
+casual observance. However, it does not obscure the IP addresses of the
+physical endpoints which are communicating. To achieve this, we are working on
+forward publishing SIP contact information into anonymous proxies. However,
+there is no requirement that SIP must be used as the signalling protocol in
+conjunction with GNU ccRTP or GNU ZRTP, so we may also look at or introduce
+other signalling/session protocols as well in the future for this purpose.</p>
+
+<p>Our intent is to apply standard-compliant protocols and methods where they
+exist and are usable to offer secure calling. Where existing protocols need to
+be extended, we will offer and document such extensions. Where new and emerging
+protocols exist for secure calling, such as ZRTP, we will make use of those as
+well. Our goal is to have a broad GPL-licensed free software framework for
+development of secure calling services that cover the full range of
+possibilities (hence, for example, both SRTP and ZRTP), rather than narrowly
+implementing a single variation.</p>
+
+<h3 id="issues">Issues and Limitations</h3>
+
+<p>When we speak of securing VOIP from passive intercept through encryption, we
+are of course presuming that, while there is the possibility that there exists
+undiscovered and undisclosed shortcuts in some of the core algorithms, even if
+true, the computational cost and time to decode a communication session would
+remain so great that it would remain only of value to attempt against very
+select targets.</p>
+
+<p>Nor does encrypted voice in any way interfere with legitimate law
+enforcement tasks where specific individuals are targeted for lawful
+investigation, presumably with judicially sought warrants. However, the means
+to do intercept would require on-premise bugging rather than external passive
+intercept. The cost to use such methods for the very small number of lawful
+investigations is indeed very small compared both to the cost of deploying
+passive intercept capabilities everywhere, and especially compared to the
+potential loss of everyone's right to free expression and free association
+experienced by the deceptive deployment of police-state-inspired mass
+intercept.</p>
+
+<p>However, while encrypting voice has generally been understood for a long
+time, securing connection information is a different problem. We can apply TLS
+to existing session protocols so that they do not reveal secondary information,
+and this helps reduce the visible communication profile even further. However,
+the final task of obscuring who communicated with whom by IP endpoint address
+is much harder to achieve.</p>
+
+<p>One answer is the use of anonymous proxies. This helps in that neither party
+directly communicates, and each session is through a different proxy. Anonymous
+proxies have been used successfully in projects like Tor because they have
+multiple stages. This cannot be done, at least in the same way, in voice
+communication because of latency. Hence we are reduced to single step
+proxies.</p>
+
+<p>In the worst case in a single step anonymous proxy, an external party with
+sufficient resources to observe broadly may well successfully observe that
+person at IP address A communicated with proxy at IP address X starting at a
+fixed and known time, and that proxy X formed a connection to someone at IP
+address B at roughly the same time. Having very many users on each proxy will
+obscure this, especially in conjunction with doing things with false sessions,
+randomly delayed startup, and separate shutdown with false traffic. However,
+again this requires proxies each capable of hosting a very large number of
+users, and there being sufficient usage to assure many of these proxies are
+filled to near capacity.</p>
+
+<h2 id="status">Project Status</h3>
+
+<h3 id="phase1">Phase 1 - The Stack</h3>
+
+<p>Securing voice channels with Secure RTP profile and ZRTP support. Introduced
+with GNU ccRTP 1.5 and improved since then. Complete, initially released
+October 1, 2006, along with the release by Michel de Boer of a
+Secure-Call-capable Twinkle softphone client. Current releases are maintained
+compatible with the latest release of Zfone and the latest IETF &ldquo;<a
+href="https://tools.ietf.org/html/draft-zimmermann-avt-zrtp-22">Media Path Key
+Agreement for Secure RTP</a>&rdquo; drafts. Recently, a new Java implementation
+of the ZRTP stack has been created, and successfully integrated into the
+Java-based <a href="http://sip-communicator.org/">SIP Communicator</a> client.
+Recent downloads of SIP Communicator come with ZRTP4J support.</p>
+
+<h3 id="phase2">Phase 2 - The Switch</h3>
+
+<p>Many IP-PBX systems (such as Asterisk) establish media sessions with the
+endpoints (operating as a <abbr title="back-to-back user agent">B2BUA</abbr>),
+and thereby require both media to pass through the server itself, and to do so
+in decrypted form. This is essentially a &ldquo;forced&rdquo;
+man-in-the-middle, as well as adding latency and in my opinion disadvantaging
+the existing peer media/network scalable capabilities of SIP/RTP softphone
+devices.</p>
+
+<p>GNU SIP Witch, initially released in 2008, is offered as a model for a
+secure VOIP telephone switch that supports TLS over SIP and that can
+interconnect secure endpoints without intercepting media, thereby assuring
+privacy without compromising security. Furthermore, GNU SIP Witch offers a
+&ldquo;forward plugin&rdquo; and calling model, whereby one can support secure
+media interconnection directly between ZRTP-capable endpoints while also
+operating in conjunction with, and access to, an insecure calling domain
+managed by a conventional B2BUA-based IP-PBX. This is accomplished by
+cross-registering secure user agents with the insecure IP-PBX and routing
+insecure destinations to it.</p>
+
+<h3 id="phase3">Phase 3 - Domain Calling</h3>
+
+<p>Moving GNU SIP Witch to the desktop, and consolidating integration with a
+local SIP User Agent, it has become possible to offer a bottom-up participatory
+network that uses published protocols and allows people to directly communicate
+anywhere using only DNS lookup of SIP URI's. This offers a free software
+alternative to Skype, which depends both on source secret binary protocol
+libraries and a central service provider, either of which can be compromised.
+This is called &ldquo;Domain Calling&rdquo;, and is being introduced as a
+feature in Ubuntu Lucid and Fedora F13 GNU/Linux.</p>
+
+<h3 id="phase4">Phase 4 - Worldwide Anonymous Calling</h3>
+
+<p>Anonymous calling proxy; Bayonne Voice Relay, with forward publishing of SIP
+contact information, and the ability to search and cache contact points. The
+goal is to allow truly anonymous and untraceable calling without revealing even
+basic signalling meta-data. In Design.</p>
+
+<h2 id="downloads">Current Downloads</h2>
+
+<pre>
+ <a href="https://ftpmirror.gnu.org/commoncpp/commoncpp2-1.7.3.tar.gz">commoncpp2-1.7.3</a> Core platform portable threading and Sockets
+ <a href="https://ftpmirror.gnu.org/ccrtp/ccrtp-1.7.1.tar.gz">ccrtp-1.7.1</a> GNU RTP Stack with SRTP support
+ <a href="https://ftpmirror.gnu.org/ccrtp/libzrtpcpp-1.4.5.tar.gz">libzrtcpp-1.4.5</a> ZRTP addon to GNU RTP stack
+ <a href="https://mfnboer.home.xs4all.nl/twinkle/download/twinkle-1.4.2-0.suse111.mdb1.x86_64.rpm">twinke-1.4.2</a> Softphone supporting GNU RTP stack SRTP/ZRTP
+</pre>
+
+<pre>
+ <a href="https://ftpmirror.gnu.org/commoncpp/ucommon-4.0.1.tar.gz">ucommon-4.0.1</a> Next generation core platform
+ <a href="https://ftpmirror.gnu.org/osip/libosip2-3.1.0.tar.gz">libosip2-3.1.0</a> GNU oSIP messaging and parsing stack
+ <a href="https://download.savannah.gnu.org/releases/exosip/libeXosip2-3.1.0.tar.gz">libeXosip2-3.1.0</a> Transactions, event management, and transport for GNU oSIP
+ <a href="https://ftpmirror.gnu.org/sipwitch/sipwitch-0.9.1.tar.gz">sipwitch-0.9.1</a> GNU SIP Witch call server
+</pre>
+
+<h2 id="comments">Todo and User Comments</h2>
+
+<p>Additional GUI elements for selection of alternate encryption
+algorithms?</p>
+
+<p>Maybe more GUI elements for SAS key management, fingerprints for social key
+exchange?</p>
+
+<ul>
+ <li>Twinkle already supports GUI elements and actions to display and verify
+  the Short Authentication String (SAS). ZRTP uses SAS to to enable users to
+  detect and thus avoid Man-in-the-Middle (MitM) attacks. SAS is not a key but
+  an authentication string that users read aloud and compare over the SRTP
+  audio session.</li>
+</ul>
+
+<p>Twinkle support for TLS-secured SIP (TCP SIP with TLS), and certificates for
+traditional SRTP-related operations?</p>
+
+<p>Please add additional ones.</p>
+
+<h2 id="resources">Related Resources</h2>
+
+<pre>
+<a href="http://www.infosecwriters.com/text_resources/pdf/Zfone_SSotillo.pdf">Some background of secure VoIP and the ZRTP specification</a>
+<a href="http://zfoneproject.com/index.html">Zfone Project Home and ZRTP specification</a>
+<a href="http://www.twinklephone.com/">Twinkle Home</a>
+<a href="http://sip-communicator.org/">SIP Communicator Java based multi-platform / multi-protocol ZRTP capable client</a>
+<a href="/software/sipwitch/sipwitch.html">GNU SIP Witch</a>
+<a href="/software/ccrtp/zrtp-faq.html">ZRTP FAQ</a>
+<a href="/software/ccrtp/zrtp-howto.html">GNU ZRTP How To</a>
+</pre>
+
+<hr class="thin" />
+<p>This page was retrieved from the Wayback Machine archive of the <a
+href="https://web.archive.org/web/20150304085123/http://www.gnutelephony.org:80/index.php/Secure_Call">GNU Telephony website</a> (licensed under the <a
+href="/licenses/fdl-1.3.html">Free Documentation License&nbsp;1.3</a>)</p>
+
+</body>
+</html>
