@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<meta name="DC.title" content="gnu.org" />
+<link rel="stylesheet" href="/software/bayonne/css/guide.css" media="print,screen" />
+<link rel="stylesheet" href="/mini.css" media="handheld" />
+<title>IRC Meeting 2012-03-26 - GNU Telephony - GNU Project - Free Software
+Foundation</title>
+</head>
+
+<body>
+<p class="toplinks">
+<a href="/software/gnucomm/freecall-roadmap.html#content">Free Call Roadmap</a>
+<a href="/software/gnucomm/gnucomm.html#content">GnuComm</a></p>
+
+<div class="title">
+<h1>GNU Telephony Meeting 2012-03-26</h1>
+</div>
+
+<p>GNU Telephony Meeting 2012-03-26<br />
+When:	2012-03-26<br />
+Where:	IRC, Freenode, channel friendica<br />
+Time:	22:30 GMT+1<br />
+Urls:	chat.freenode.net<br />
+Topic:	First IRC meeting 2012 - documentation, roadmap, SIP clients</p>
+
+<pre>
+HaakonME    Are there any questions regarding GNU Telephony?
+simonlnu    HaakonME: the best client to do debugging/testing a server with?
+HaakonME    I use Linphone on Debian GNU/Linux 6 Squeeze and CSipSimple on Android. It's a bit early - at least for me - to say which client is best.
+<i>Gå inn i      dyfet har gått inn i denne kanalen (~dyfet@ool-457169ef.dyn.optonline.net).</i>
+HaakonME    The clients have varying degrees of echo cancellation problems. This seems to be device dependent. Tuning mic volume helps, as does checking out the FAQ of your client. The CSipSimple developers have done a lot on different devices.
+HaakonME    Hello, David! :-)
+dyfet       Hi!
+HaakonME    We managed to start without you, but not by much. :D
+dyfet       Cool!
+dyfet       I guess this is our first organizational meeting...we should have done this sooner...
+HaakonME    Yes, better late than never. :)
+dyfet       Yep :)
+dyfet       I guess the first thing we should figure out is if this is a good time and day to do these, and to setup the meeting for next month
+dyfet       Was this a good time for you Haakon?
+HaakonME    Yes, Mondays at 2130 GMT or 2230 GMT+1 will work for me. Perhaps you can tell us what happened at LibrePlanet. Will there be a video of the event.
+dyfet       There is a video, or at least the conference sessions were streamed.  I know Murphy NJ also has a video, since he asked what license I want it under :)
+dyfet       I will quickly summerize.
+dyfet       Mostly I got to talk about the past and work of people in the conference.  I did not get to discuss much about what we are doing going forward though, because I ran out of time
+dyfet       I think the key issues from that we should cover here...
+dyfet       First, I think we need to execute things better, and had proposed we have regular (monthly at least for now) irc meetings for this purpose
+dyfet       (which we are doing now ;)
+dyfet       Also, I wanted to clean up the mess that is bug tracking.  Haakon had suggested we adopt Bugzilla awhile back.  I agree.
+HaakonME    I agree. So the next meeting will be April 23
+dyfet       Are there any other suggestions for bug tracking?  If not I will look at seeing if we can get that up this week
+HaakonME    I think we have agreement. :-)
+dyfet       Next item from that list was to do monthly reporting....we did not have one to summerize for this meeting.  But I would like to suggest we prepare notes and a summery for April 23...
+[squeeze]   also updating the roadmap would be very nice ...
+dyfet       Good point
+dyfet       In fact, there are items from it to discuss...
+dyfet       So lets jump to that...?
+HaakonME    Please continue :)
+[squeeze]   another suggestion i made a while ago: include gnutelephony-blog in planet.debian - maybe attract some more devs...
+dyfet       Hmm...well, we have one in gnu planet...maybe we can resyndicate?
+[squeeze]   :)
+HaakonME    I agree with squeeze, let's try that.
+dyfet       Does one have to be a debian maintainer to be on planet debian?
+dyfet       Haakon do you want to check that question out?
+[squeeze]   hmm good question, but since sipwitch is in debian you could try :)
+dyfet       Well, we will find out
+HaakonME    I had a look at http://wiki.debian.org/PlanetDebian , and it seems that since we are actively promoting Debian we might be in the clear.
+dyfet       Okay...next item...which I wanted to get opinions on, was whether we should commit to a project goal of providing a complete secure free software phone system, whether on a rasbarry pi, freedombox, etc, by the end of this year....
+dyfet       This one I will throw open to everyone to comment ;)
+[squeeze]   well nat-traversal should be the first goal
+[squeeze]   imo
+dyfet       I agree, but it touches upon different things that would have to happen in parellel also...there is a short list of specific sipwitch tasks I already have which include nat....
+dyfet       Also I need to clean up access policies and make them a little more sane, or at least less fighting between automatic and manual access rules :)
+dyfet       And media proxy has to be updated.  Ideally we need to do https port proxying of media and sip (to get through corporate firewalls), but basic nat and media proxy will I think be enough to get to the goal there
+dyfet       In Bayonne, we need an operational server to support voice mail
+HaakonME    I think we should do a complete system, but perhaps we should put things in order first, before we say a year.
+dyfet       Lets do that....lets come up with a complete task list
+[squeeze]   finally :)
+dyfet       What additional tasks do we need for sipwitch?
+dyfet       (after nat with more functional media proxy, and access rules cleanup)
+HaakonME    We need more configuration examples and further explanation of the settings.
+dyfet       Good...documentation :)
+[squeeze]   horray
+[squeeze]   :]
+dyfet       Hmm...maybe you and squeeze can get together on that?
+[squeeze]   sure
+dyfet      excellent
+dyfet      Haakon has at least manage to suffer through the documentation and config info we already have ;)
+HaakonME   Actually, I found most of what I needed was in place. It's the over the Internet thing that stops people.
+dyfet      What other tasks do people see?
+HaakonME   We need screenshots or video explanations
+dyfet      Haakon, would you like to do a video with csipsimple clients?
+[squeeze]  attract more devs...david...say...are you the only one currently coding?
+HaakonME   My HTC Desire isn't rooted, but my Samsung Galaxy Tab has a screenshot feature. I'll check if there is a screencast option.
+dyfet      squeeze...sometimes it feels like it :).  Well, Dittermann mostly focuses on zrtp and ijitsu....
+HaakonME   The screenshot app for Desire needs root
+dyfet      And Haakon has done lots of things that have already helped
+dyfet      Squeeze, how do you suggest we attract more developers?
+HaakonME   We need to send in an application to FERD. I'm on it.
+[squeeze]  more talks, frequently blog-updates, site updates, complete roadmap and docs
+dyfet      squeeze, that sounds like a good goal to shoot for by next meeting
+dyfet      at least updates, roadmap, and docs
+[squeeze]  +1
+HaakonME   +1
+HaakonME   Let's drill down on those in order.
+dyfet      talks depend on whats available...what look like good upcoming oportunities?
+HaakonME   There is the one in June
+dyfet      And I would love to shift to doing talks with live demos...but we can work on that once we know what/where/when is the next event
+dyfet      What is in June?
+HaakonME   http://www.confmanager.com/main.cfm?cid=2607
+dyfet      Oh yes, I found this one :)
+HaakonME   Yep! :D
+dyfet      Do we want to participate at this?  I think Haakon says +1 ;)
+[squeeze]  well for now it would be good to have the videos available for public viewing...
+HaakonME   What is the best place for these - YouTube or some other place?
+[squeeze]  well why no use the space on gnu?
+HaakonME   Oh, and +1 for the conference - if we can find the funding to go.
+dyfet      Well, we have only a week to get a proposal in....
+dyfet      I have been to DC before...but not in a decade
+[squeeze]  audio-video.gnu.org like your talk ... http://audio-video.gnu.org/video/ghm2011/Haakon_Eriksen-GNU_Free_Call.ogv
+Avslutt      n1x har forlatt denne tjeneren (Ping timeout: 240 seconds).
+dyfet      squeeze - perfect...!
+HaakonME   Hey - great, Squeeze!
+HaakonME   One week is a bit tight for the proposal...
+dyfet      I think we will talk about that conf separately, Haakon...well, we can do something similar to the mei one you did if we needed to get a proposal in, but we need to figure out who can go and how, etc....
+HaakonME   Yes, I do believe my students are having their oral examination about that time.
+dyfet      I will have to see if I can go...and I will try to figure that out by midweek
+HaakonME   Great
+dyfet      Are there any other upcoming events?
+HaakonME   http://www.telemed.no/eksterne-konferanser.4264.no.html
+dyfet      well, we can also have that open as an action item for next meeting :)
+[squeeze]  about bugtracking: would'nt it be easier to keep mantis, clean the spam, disallow anonymous posting and USE IT ':-)
+HaakonME   These are eHealth conferences gathered by the Norwegian Centre for Integrated Care and Telemedicine in Tromsø
+dyfet      They have one at may in Oslo?
+HaakonME   I'll have to look into that.
+dyfet      Squeeze...well, I think it may be equal work to clean up mantis or to setup something new, at least if not too complex...using it this time will be the key of course! :)
+HaakonME   I've set up my own Mantis, and felt kindy clunky, but having one is better than none. :)
+[squeeze]  ok
+dyfet      Well, I do know how to setup Mantis....but since we dont have a real history that needs to be kept, changing now has no impact
+[squeeze]  but if you set up something new it would be nice to have a (phpbb?)-forum too!
+[squeeze]  and keep the devs-mailing-list for devs only :-)
+dyfet      hmm...you think so?  Hmm...Simon?  How what do you think about a phpbb forum?
+simonlnu   HaakonME: thanks
+simonlnu   hi dyfet :)
+dyfet      :) that is something I know your familiar with ;)
+simonlnu   phpbb or mybb
+simonlnu   heh heh ;)
+[squeeze]  yourbb
+[squeeze]  :D
+dyfet      Haakon do you think we should have a phpbb?
+dyfet      (or somebb ;)
+HaakonME   No. At this point I think we are too few to invest in so many channels.
+dyfet      Valid point...
+dyfet      Lets have that question again in April
+[squeeze]  well BUT
+[squeeze]  it would help to set up a community
+HaakonME   Yes, it would, but we have been pushing dev-lists for months and there are few takers.
+HaakonME   Friendica, on the other hand is fresh, and we have met and forged relationships.
+[squeeze]  yes and its not publicly available
+dyfet      Well, we also do it seem have a presense on the debian phpbb :)
+[squeeze]  :(
+[squeeze]  sure...
+[squeeze]  but since in the manual section, no question etc are allowed there
+simonlnu   oh yeh? i have an account there. haven't used it much lately.
+dyfet      Hmm...that I did not know
+dyfet      Well, there are two things, really....one is if we should have a friendica node we can offer open to everyone...and the other is if we should setup a phpbb...
+[squeeze]  well its php in the end
+dyfet      so is mantis :)  We could easily stick them all together...that is the one advantage it did have over bugzilla
+Gå inn i     n1x har gått inn i denne kanalen (~muneeb@unaffiliated/n1xnc0d3).
+dyfet      Hmm...maybe "friendsof.gnutelephony.org"? :)
+simonlnu   hm, i like that
+[squeeze]  friends.gnutelephony.org
+HaakonME   +1 squeeze
+dyfet      +1 squeeze also :)
+simonlnu   cool w/me too
+[squeeze]  ok +1 for the public friendica node
+HaakonME   And we add a screenshot
+HaakonME   +1 for public friendica node
+simonlnu   recent git master has added screenshots for themes
+[squeeze]  nice
+dyfet      Now we have to host it...the easiest (and cheapest) would be openshift, though there are questions that come from that too :)
+[squeeze]  pagekite!
+dyfet      pagekite?
+HaakonME   Didn't you get an offer from Sweden, David?
+[squeeze]  pagekite.net
+dyfet      Ohhh...I recall something said about that...Haakon...lets find that....or hipatia...
+simonlnu   anywhere not in settler north america would be good ;)
+dyfet      Good point Simon
+HaakonME   I'll have to turn in in about 10 minutes - it's getting a tad late. :-)
+dyfet      Okay...I think we have a lot already for next month :)
+dyfet      Any other items?
+HaakonME   Roadmap - what's next
+simonlnu   hmm
+dyfet      Well, I listed immediate goals for sipwitch.  For bayonne it is getting a running server up.  Then we need to look at the client issue....what items do you have for it?  And of course there is the bluetooth discussion ;)
+dyfet      Oh, and also...who has a log of this meeting? :)
+HaakonME   I'll have to start drawing in the rest, and maybe try connecting it via XML-RPC
+* simonlnu checks his sqlite thingy
+HaakonME   I do
+dyfet      lets take the roadmap as an action item definately to present next meeting
+Gå inn i     jamesbeebop har gått inn i denne kanalen (~jamesbeeb@184.0.219.224).
+simonlnu   not enabled..
+dyfet      (and on the site before that too for people ;)
+HaakonME   Yup. :)
+dyfet      Any additional items before people need to go?
+HaakonME   I think we should say something about the Friendica/sipwitch plugin
+HaakonME   What does it do now?
+[squeeze]  well its useless without nat-traversal
+dyfet      Yep...its mentioned on the roadmap, I think...but not much is said.  At the moment you can register to it, and it has a public facing ip address...but it is dynamic, port forwarded
+dyfet      I need to write a document on even that :)
+[squeeze]  poor david! i wish you get some more fellow devs soon!
+dyfet      We have it and I am sure nobody even knows how to use it ;)
+[squeeze]  :)
+dyfet      Okay...any other last minute items?  And I can cut and paste for the log if I have to...
+HaakonME   NAT is interesting, but we can do a lot before that by making sipwitch easier in a private environment.
+[squeeze]  pls! post future irc meetings on frontpage
+[squeeze]  with timzone and channel
+HaakonME   Noted +1
+dyfet      That was why I was focusing on the enterprise goals, Haakon...yes, there is stuff we can do even without nat....
+dyfet      And anything we do to make it easier helps in all goals :)
+HaakonME   I've been approached by people in Norway who are thinking about embedded systems inside hospitals.
+HaakonME   Alerts to phones, that kind of thing.
+dyfet      Very cool
+dyfet      We will talk about that more too :)
+HaakonME   Okay, have to go to sleep now - thanks, guys - it's been fun! :)
+dyfet      Okay, I think we are ready to close the formal part of the meeting :)
+simonlnu   g'night HaakonME
+dyfet      And you get some rest Haakon!
+[squeeze]  good night, haakon
+HaakonME   Good night, everyone! :-)
+[squeeze]  see you on friendica :)
+dyfet      I noted a lot of items :)
+dyfet      But I think most are things we should be doing to organize and communicate better
+[squeeze]  +1
+dyfet      Well, I am glad we started doing this
+dyfet      Oh, and we have a cia bot ;)
+simonlnu   same here
+[squeeze]  i'm glad im here via vpn then :))
+dyfet      +1 ;)  I was just looking at who is in the room ;)
+simonlnu   heh
+dyfet      Now if we did have a cia bot, I suppose we could get a copy of the log through a foya, but no doubt it would be radicated
+dyfet      (foia)
+dyfet      :)
+simonlnu   i enabled the mysql logger script
+dyfet      Well, next time we will make sure to address that before the meeting ;)
+simonlnu   yes ;). i'll leave it running, and truncate periodically (it can get big)
+simonlnu   except the meetings of course
+simonlnu   i'll do my usual, and make backups first
+[squeeze]  perhaps a gnutelephony-channel would be better than a friendica one
+simonlnu   yeh
+dyfet      Well, we do have the old #bayonne channel....
+simonlnu   hmm :)
+dyfet      We could request a new #gnutelephony one, too...
+[squeeze]  well that'd be good for corporate design at least ;-)
+simonlnu   that would be a good idea. hah [squeeze] :)
+dyfet      like daleks...."incorporate...incorporate..."
+simonlnu   hehe
+simonlnu   "assimilate, assimilate"
+dyfet      Same thinking...
+simonlnu   yep ;)
+[squeeze]  i love star trek :-))
+dyfet      be back....
+simonlnu   ok doky
+[squeeze]  well what about the other guys/gals in here ...just listening?!
+[squeeze]  well too bad i gotta go too...
+[squeeze]  good n8 and see you soon :)
+simonlnu   g'night [squeeze]
+[squeeze]  greets to david and you simon! (til next month or on friendica :-) )
+[squeeze]  bye
+<i>Avslutt      [squeeze] har forlatt denne tjeneren (Quit: Verlassend).</i>
+dyfet      yeah a few quiet people :)
+dyfet      But I am heading out also for tonight...good night Simon
+<i>Avslutt      dyfet har forlatt denne tjeneren (Quit: Ex-Chat).</i>
+simonlnu   g'night
+</pre>
+
+<hr class="thin" />
+<p>This page was retrieved from the Wayback Machine archive of the <a
+href="https://web.archive.org/web/20141006055041/http://www.gnutelephony.org:80/index.php/GNU_Telephony_Meeting_2012-03-26">
+GNU Telephony website</a> (licensed under the <a
+href="/licenses/fdl-1.3.html">Free Documentation License&nbsp;1.3</a>).</p>
+
+</body>
+</html>
