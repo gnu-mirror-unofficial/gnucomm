@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<meta name="DC.title" content="gnu.org" />
+<link rel="stylesheet" href="/software/bayonne/css/guide.css" media="print,screen" />
+<link rel="stylesheet" href="/mini.css" media="handheld" />
+<style type="text/css" media="print,screen"><!--
+h2 { font-size: 1.2em; }
+--></style>
+<title>GNU Free Call GUI - GNU Telephony - GNU Project - Free Software
+Foundation</title>
+</head>
+
+<body>
+<p class="toplinks">
+<a href="/software/gnucomm/gnucomm.html#content">GnuComm</a></p>
+
+<div class="title">
+<h1 class="center">GNU Free Call GUI</h1>
+</div>
+
+<p>GNU Free Call will be a secured peer-to-peer mesh networking SIP-phone based on GNU SIP Witch. Here is an illustration by Haakon Meland Eriksen.</p>
+
+<p>The illustration tries to convey the idea that nearby phones with GNU Free Call acts as intermediaries between the volunteer and the doctor after a natural disaster. Cell phone towers are often physically destroyed, loose power and those that still work experience overload as people try to contact each other. Using the phones to create secured peer-to-peer mesh calling networks will hopefully make it possible to get through.
+
+
+<h2>Discovering the people around you</h2>
+
+<p>Given its decentralized nature, users need an easy way to find contacts and new potential contacts. Here is one idea, based on the OLPC project's Sugar interface, but rather than people meeting around activities people discover each other around tag clouds.
+
+<h3>Main screen</h3>
+
+<p>The main screen initially shows the GNU Free Call logo with the buttons &ldquo;You&rdquo;, &ldquo;Fellow GNUs&rdquo; and &ldquo;Discover Hurd&rdquo; below. Clicking the buttons brings the user to one of the three main screens. The logo part may be used to show who you are talking to in a video conversation - double tap the video to zoom to full screen.
+
+<h3>You</h3>
+
+<p>At the top of the You-screen is a live search box with the default text set to &ldquo;Search You...&rdquo; and a single GNU-icon to identify the You-screen. Searching starts as you type, and the list of tags below shortens as you home in on the wanted item.
+
+<p>Information about you is stored as tag clouds, with separate privacy settings for each cloud or individual items in a cloud. There are three visibility setting - You, GNUs and Hurd. To the right of the tag name is a green dot in the You-column, which means only you can see it. You can slide this to the right, and make it visible to friends and contacts - the GNUs-column. You can slide it into the Hurd-column to let everyone see it.
+
+<h4>Sharing secrets</h4>
+
+<p>First time round, your secret key and your public key are generated. These are used to secretly share information, like images.
+
+<p>Your secret key is used to unlock secrets sent to you. It is red and you cannot slide it to the right. This is to prevent you from accidentally sharing it. However, you can override this in the advanced settings.
+
+<p>Your public key is used by others to send you secrets. It is green and initially visible to Fellow GNUs - your friends and contacts. You can slide it left so only you can see it, or you can slide it right so anyone can see it. Public keys visible to you are stored, so you can send secrets to friends and contacts.
+
+<p>To share for instance an image, simply tap the image to display its menu and choose &ldquo;Share secretly with...&rdquo; You select the contacts you want, and the image is duplicated and encrypted with your contacts public keys. They appear as a list of contact names below the original image and are initially only visible to you as yellow dots in the You-column. You slide it into GNUs-column to make it visible to your contacts. Your contacts use their secret key to view it.
+
+<h3>Fellow GNUs</h3>
+
+<p>Contacts with information shown to you by your contacts. Adding a contact will automatically import the contact's public key, which you use to send secrets that only your contact's secret key can open. Search their tags. Tags may be truncated when the phone is in a vertical position, these should expand when the phone is in a horizontal position.
+
+<h3>Discover Hurd</h3>
+
+<p>People or services with tags you can browse like directory or search for.
+
+<p>Rather than writing &ldquo;Discover herd&rdquo;, I've taken some artistic freedom and written &ldquo;Discover Hurd&rdquo;. This is on purpose and in reference and homage to the architecture of the GNU/Hurd system. The basic nature of the GNU/Hurd system is decentralized, distributed and user-centric, and I felt that was applicable to GNU Free Call too - more user freedom. You can use Arch Hurd to try a GNU/Hurd system and discover how it works.
+
+<h2>Designers look here - SVG</h2>
+
+<p>GNU Free Call decentralized GUI plain SVG is available <em>[unavailable in 2017]</em>; feel free to improve it. Inkscape was used originally.
+
+<h2>Android prototype</h2>
+
+<p>Haakon needed an Android prototype of the GUI to interact with to think of problems with the design and to more easily explain to people how this is supposed to work. Pimm Hogeling quickly put together an Android app showing the main screen with the three buttons, and the three sub-screens with a tag search field and some tags. NOTE: THE APP DOES NOT WORK - you cannot call with it - it is for illustration purposes only.
+
+<p>Pimm's illustration prototype is available here: <a href="https://github.com/Pimm/GNU-Free-Call-prototype">https://github.com/Pimm/GNU-Free-Call-prototype</a>.
+
+<p>You need a file manager app to move it onto your phone. It was made to fit on Haakon's HTC Desire.
+
+<h2>Identified problems with the design</h2>
+<ul>
+ <li>Thinking about a medication tag and an allergy tag - how to restrict showing these to only one Fellow GNU, like a doctor or hospital?</li>
+ <li>Drop the sub-screen title and put the search field there?</li>
+</ul>
+
+<h2>Other designs are possible and suggestions are welcome</h2>
+
+<p>We are interested in designs that give the widest range of users easy, consistant navigation - think emergency.
+
+<h2>Contact</h2>
+<ul>
+ <li><a href="mailto:dyfet@gnutelephony.org">David Sugar</a></li> 
+ <li><a href="mailto:haakon.eriksen@far.no">Haakon Meland Eriksen</a></li>
+</ul>
+
+<hr class="thin" />
+<p>This page was retrieved from the Wayback Machine archive of the <a
+href="https://web.archive.org/web/20130703050333/http://www.gnutelephony.org/index.php/GNU_Free_Call_GUI">GNU Telephony website</a> (licensed under the <a
+href="/licenses/fdl-1.3.html">Free Documentation License&nbsp;1.3</a>).</p>
+
+</body>
+</html>

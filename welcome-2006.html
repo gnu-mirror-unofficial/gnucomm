@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<meta name="DC.title" content="gnu.org" />
+<link rel="stylesheet" href="/software/bayonne/css/guide.css" media="print,screen" />
+<link rel="stylesheet" href="/mini.css" media="handheld" />
+<title>Welcome to GNU Telephony - GNU Project - Free Software
+Foundation</title>
+</head>
+
+<body>
+<p class="toplinks">
+<a href="/software/bayonne/bayonne.html#content">Bayonne</a>&nbsp;
+<a href="/software/sipwitch/sipwitch.html#content">SIP Witch</a>&nbsp;
+<a href="/software/commoncpp/commoncpp.html#content">[u]Common&nbsp;C++</a>&nbsp;
+<a href="/software/ccrtp/ccrtp.html#content">ccRTP</a>&nbsp;
+<a href="/software/gnucomm/gnucomm.html#content">GnuComm</a></p>
+
+<div class="title">
+<img src="/software/gnucomm/bayonne-logo.png" alt="Bayonne logo" />
+<div class="text">
+<h1 class="center">Welcome to GNU Telephony</h1>
+</div></div>
+
+<p>GNU Telephony is a meta project dedicated to the development and promotion
+of the use of free software for telephony. GNU Telephony is used to directly
+support the GNU Common C++ family of libraries and telephony application
+servers such as GNU Bayonne, which are part of the GNU Project, as well as
+other packages that we regularly use. We will also support several <a
+href="projects-2006.html">special projects</a> from this site, including <a
+href="cape.html">CAPE runtime libraries</a>, <a href="secure-call.html">Secure
+Calling</a> and <a href="open-embedded.html">GNU Telephony Open Embedded</a>.
+An overall project <a href="roadmap-2006">roadmap</a> may also be found on this
+wiki.</p>
+
+<h2>Latest News</h2>
+
+<p>GNU SIP Witch is our newly announced VoIP call, provisioning, and feature
+server of the GNU Project. It offers network-scalable services through SIP. GNU
+SIP Witch only offers registration services and only performs destination
+selection and routing. GNU SIP Witch uses SIP to resolve media streaming by
+endpoints. This means GNU SIP Witch is neither inhibited by restrictive codec
+patents nor imposes additional media latency in VoIP networks.</p>
+
+<p>New <a href="build-system.html#make-in-place">Make-in-place</a> build
+system introduced for GNU Telephony. What this allows one to do is configure
+and build all parts of GNU Telephony without the need to do a partial
+&ldquo;make install&rdquo; for dependent libraries or the need to create
+&ldquo;fake roots&rdquo; if one is a guest on a machine without root
+access.</p>
+
+<p>UCommon 0.4.0 was released on June 29th as a new package licensed using the
+GNU GPLv3. While we are re-using the ucommon name, this release is not directly
+related to any prior releases. The latest 0.5.0 release is available for
+download at [1] <em>(unavailable)</em>.</p>
+
+<p>UCommon is meant as a very light-weight C++ library to facilitate using C++
+design patterns even for very deeply embedded applications, such as for systems
+using uClibc along with POSIX threading support. For this reason, UCommon
+disables language features that consume memory or introduce runtime overhead,
+such as RTTI and exception handling, and assumes one will mostly be linking
+applications with other pure C-based libraries rather than using the overhead
+of the standard C++ library and other similar class frameworks.</p>
+
+<h2>How you can participate</h2>
+
+<p>We are running a generally open wiki for this project. Once you login, you
+can edit any page on this site to correct and improve it. For information on
+editing, see the MediaWiki User's Guide.</p>
+
+<h2>Project Status</h2>
+
+<p>GNU Bayonne is the telephony server of GNU Telephony and the GNU Project.
+The production release of GNU Bayonne&nbsp;1 is 1.2.15. GNU Bayonne supports
+IVR scripting using hardware from Voicetronix, Dialogic, Aculab, CAPI drivers,
+and Quicklink drivers under GNU/Linux. GNU Bayonne&nbsp;1 can integrate Perl
+and Python applications, and has been commercially deployed in production use
+for several years.</p>
+
+<p>The stable release is GNU Bayonne 2, the current release series is 1.5.x,
+and currently supports SIP, H.323, and Voicetronix drivers. GNU Bayonne 2 can
+be used on 32 and 64 bit GNU/Linux systems, various BSD systems, MacOS&nbsp;X,
+and Microsoft Windows. Work is in progress on support for Dialogic, Aculab, and
+Synway hardware. Other drivers will be added as time and community support
+allows to be developed.</p>
+
+<p>The stable release currently performs script-driven IVR applications written
+in GNU Bayonne's native scripting language, as well as access, conversion, and
+playing of audio from remote URL's. The stable release also performs basic
+switching interconnect functions, including tone detection and DTMF
+regeneration, that are needed for basic gateway operations. The latest release
+can also operate as a SIP proxy and register for external SIP devices, which
+can be used to build phone systems and gateways. The stable release supports
+integration of external Perl, Python, PHP, C#, and Java applications; the
+ability to perform XML query operations and voice rendering of BayonneXML
+documents with a web site; and a build-in webserver offering HTML pages to
+browsers and standard-compliant XMLRPC services for programmatic control and
+integration. XMLRPC is also offered as a local Unix domain socket if one does
+not wish to expose the server to remote access, and may be offered over SIP
+transport as well soon.</p>
+
+<p>The GNU Telephony <a href="open-embedded.html">Open Embedded</a> project has
+recently had its first success, in building installable packages of GNU Common
+C++ and GNU ccRTP for GNU/Linux on ARM. These packages are built for use on
+iPAQ's, either using GPE or OPIE. I hope to soon port an initial softphone
+client like SFLphone and/or Twinkle to iPAQ.</p>
+
+<h2>How we license our code</h2>
+
+<p>In GNU Telephony, we generally license under the GNU GPL version 2 or later.
+Some of our C++ frameworks and libraries may use the same Runtime Library
+Exception used for libstdc++ in the GNU Compiler Collection.</p>
+
+<hr class="thin" />
+
+<p>This page was retrieved from the Wayback Machine archive of the <a
+href="https://web.archive.org/web/20070824023326/http://wiki.gnutelephony.org/index.php/Main_Page">
+GNU Telephony wiki</a> (licensed under the <a
+href="/licenses/old-licenses/fdl-1.2.html">Free Documentation
+License&nbsp;1.2</a>), and slightly edited.</p>
+
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<meta name="DC.title" content="gnu.org" />
+<link rel="stylesheet" href="/software/bayonne/css/guide.css" media="print,screen" />
+<link rel="stylesheet" href="/mini.css" media="handheld" />
+<title>Roadmap 2006 - GNU Telephony - GNU Project - Free Software
+Foundation</title>
+</head>
+
+<body>
+<p class="toplinks">
+<a href="/software/bayonne/bayonne.html#content">Bayonne</a>&nbsp;
+<a href="/software/gnucomm/gnucomm.html#content">GnuComm</a></p>
+
+<div class="title">
+<img src="/software/gnucomm/bayonne-logo.png" alt="Bayonne logo" />
+<div class="text">
+<h1 class="center">Roadmap 2006</h1>
+</div></div>
+
+<p>I have recently made available a number of interesting releases from things
+that had actually been in development from a long time ago, and I will later
+this summer bring out some entirely new things. I wish to explain how these
+releases relate to, and what is my overall roadmap for, GNU Telephony for the
+next several years.</p>
+
+<h2 class="TC">Contents</h2>
+<ul class="TofC h">
+  <li><a href="#bayonnexml">BayonneXML and web services</a></li>
+  <li><a href="#framework">Frameworks and Platforms</a></li>
+  <li><a href="#past-services">Migration of Past Services</a></li>
+  <li><a href="#new-services">Introduction of New Services</a></li>
+  <li><a href="#long-term">Our long term vision for VoIP</a></li>
+  <li><a href="#legal">Legal issues and Infrastructure</a></li>
+</ul>
+
+<h2 id="bayonnexml">BayonneXML and web services</h2>
+
+<p>The last two point releases of <a href="/software/bayonne/bayonne.html">GNU
+Bayonne</a>&nbsp;2 have focused on enabling Bayonne to be both a producer and
+consumer of XML documents. This included the re-introducing of <a
+href="/software/bayonne/bayonneXML.html">BayonneXML</a> to allow GNU Bayonne
+servers to query and process call sessions under the control of web-served
+documents. I see XML documents as the way to enable common publishing and
+presentation of documents, whether on the web for browsers in XHTML, for
+editing through ODT, for the visually impaired in Daisy, and VoiceXML and/or
+BayonneXML for presentation to telephone callers. Produce once and distribute
+everywhere.</p>
+
+<p>Bayonne server bindings offered new opportunities for introducing new
+application service with GNU Bayonne. Now that we are working with BayonneXML
+again, I also wish to introduce Bayonne Daisy as a server binding for the <a
+href="https://savannah.gnu.org/projects/alexandria">GNU Alexandria</a> package.
+There also remains a lot of work to make BayonneXML more fully consistent with
+<a href="https://www.w3.org/TR/ccxml/">CCXML</a>/<a
+href="https://evolution.voxeo.com/docs/platforms.jsp">CallXML</a>.</p>
+
+<p>GNU Bayonne 2 web services provide a model both for system management and
+for integrating GNU Bayonne with other application services. Initially I have
+introduced several .html status pages which automatically refresh, and hence
+can be used to monitor the server, and a new XML dialect, <a
+href="/software/bayonne/serverResponse-spec.html">serverResponse</a>, which
+allows one to send a GET request to known URI's, with optional query arguments,
+and retrieve a XML response document which is simpler than the POST-driven <a
+href="http://www.xmlrpc.com/spec">XMLRPC</a> reply system. In the future I will
+also be adding XMLRPC to GNU Bayonne web services. The existing web service
+also needs support for authentication.</p>
+
+<p>GNU Bayonne web services makes it possible to telephony-enable existing
+applications, either from other web services, or by using common scripting
+languages. Along with the existing <code>Bayonne::Libexec.pm</code> module, and
+similar modules for Python, Java, C#, and php that also exist, I will be
+writing a <code>Bayonne::Webservice.pm</code> (and
+<code>Bayonne::xmlrpc.pm</code>) module for different scripting languages to
+future GNU Bayonne distributions to make it easier to write such applications
+that integrate with GNU Bayonne.</p>
+
+<h2 id="framework">Frameworks and Platforms</h2>
+
+<p>There has been some effort being made in an entirely new sub-project, <a
+href="open-embedded.html">GNU Telephony Open Embedded</a>. This work is focused
+on making the core GNU Telephony frameworks available for two uses; for those
+developing softphone applications for handheld devices, potentially using <a
+href="https://web.archive.org/web/20100819043722/http://gpe.handhelds.org/">
+GPE</a>, <a
+href="https://web.archive.org/web/20050112061446/http://opie.handhelds.org/cgi-bin/moin.cgi/">OPIE</a>,
+or QTOPIA; and for deploying embedded servers (including things like GNU
+Bayonne) on appliances.</p>
+
+<p>With regard to our framework libraries, there are specific goals for each.
+These goals are consistent both with features that have been missing but deemed
+vital to add, and with addressing needs suggested by other goals.</p>
+
+<p>In <a href="/software/commoncpp/commoncpp.html">GNU Common C++</a>, there
+will be work on introducing <code>SSLStream</code> (and later
+<code>SSLSocket</code>) in the <code>ccext2</code> library, using openSSL. The
+existing <code>URLStream</code> class will then be rewritten to support
+<code>SSLStream</code> and to support SSL websites. From the perspective of GNU
+Bayonne, binders like BayonneXML which consume websites will eventually be
+rewritten to use <code>URLStream</code> rather than depend on external
+libexec-based <code>xml-fetch</code>, to increase performance. Other uses will
+include support for creation of services which depend on secure communications,
+and hence support for things like key management and encryption will also be
+added to the GNU Common C++ framework directly.</p>
+
+<p>In <a href="/software/ccaudio/ccaudio.html">GNU ccAudio2</a>, some work has
+been completed on improving plugin support for codecs, including those which
+have irregular packet sizes. This work will be used to modify the
+<code>AudioStream</code> class with methods that allow a codec to pull data and
+synchronize I/O to packet boundaries. An example of this will be found in the
+interaction of the future MPG audio codec plugin with the audio file streaming
+class.</p>
+
+<p>GNU ccAudio2 now includes primitive resample support. This allows audiotool
+to do basic &ldquo;rate conversion&rdquo;. This needs to be integrated with a
+smart resampler algorithm. In addition, I will be adding support for generating
+false audio positioning in GNU ccAudio2's existing capability to convert mono
+to stereo audio. This will be very useful in future telephony softphone client
+work. There are many gaps remaining in GNU ccAudio2, including fsk/fax
+decoding, which still needs to be addressed.</p>
+
+<p>In <a href="/software/ccrtp/ccrtp.html">GNU ccRTP</a>, I am going to look at
+how we can simplify templates, so that we do not have to have entirely separate
+templates for IPV4, IPV6, etc. I may also look at introducing some hard-coded
+classes for certain common RTP profiles. However, we do not have any large
+issues in GNU ccRTP, that I see, only those that will either make the library
+easier to use, or better suited for embedded applications.</p>
+
+<p>On the Microsoft Windows platform, I recently re-organized <a
+href="cape.html">CAPE</a>, and broke compatibility with past releases of
+CAPE-dependent software in the process. This was done to standardize the naming
+convention we used for DLL's so that versioning of API's would be better
+represented. I also used it as an opportunity to introduce a bunch of
+additional libraries as part of CAPE for building GNU ccAudio2 codec support,
+including Speex, and a stand-alone GSM audio DLL. The existing .dsp project
+files for GNU Bayonne can be made to work with the new CAPE releases by
+adjusting the link library names.</p>
+
+<h2 id="past-services">Migration of Past Services</h2>
+
+<p>Recently I did a partial rewrite of the globalcall driver stack to try and
+eliminate issues with call failure states. This became 1.2.16, which still has
+one open issue with handling of disconnect on outbound calls, and included the
+new SNMP module. I intend to resolve that issue this or next weekend, and then
+have a new release (1.2.17). Afterward, I will be focusing on migrating
+Dialogic driver support to Bayonne2.</p>
+
+<h2 id="new-services">Introduction of New Services</h2>
+
+<p>Many new areas of development are still in my workshop, and so have not yet
+made it into software I have released. However, I am very shortly going to
+introduce the first of what will become several new free software generic
+Internet media servers through GNU Telephony. None of these break new ground
+directly, although they are engineered to my expectations, and are meant to be
+used for experimentation in convergence of telephony, Internet radio, IMS, and
+IPTV, over the next several years. Free media requires freedom in the tools
+which propagate it, as well as freedom in the formats it is encoded in, and the
+infrastructure it is carried on.</p>
+
+<p>The first of these new servers will be the Nijmegen audio, video, and
+internet radio streaming server, which implements the icecast protocol, and
+supports plugins as media sources. Initial releases will be available sometime
+on or before August 1st, when I will demonstrate this new server during ClueCon
+in Chicago. Later this year I am introducing a RTSP based generic streaming
+media server.</p>
+
+<p>Because it is vital to our enterprise vision for GNU Telephony, a third
+effort will be made to introduce Troll gateways, and this time again as a
+standalone server. This will focus on the idea of tightly coupling the RTP
+stack to the telephony device for optimal gateway I/O performance. The other
+advantage this offers is being able to offload transcoding to the telephony
+card, and presenting those codecs which the device natively supports. This is
+from our vision of optimizing system load and maximizing system capacity. There
+are already other gateways that support such functionality through extensive
+transcoding.</p>
+
+<p>Part of this enterprise vision focuses on separating telephony into three
+parts; a gateway for when dealing with PSTN/ISDN trunking services, an
+application/media server (GNU Bayonne), and a call control/session
+manager/registrar/call server. For H.323 networks, <a
+href="http://www.gnugk.org/">GNUGK</a> is already an excellent resource. For
+SIP there are things like SIPX and Vocal, although each breaks up the
+functionality into separate micro services. I have thought about introducing a
+new kind of SIP proxy/registrar that focuses on peer-to-peer audio while
+managing SIP sessions, call state, call groups, etc.</p>
+
+<p>Another important consideration has been in developing applications with GNU
+Telephony. Part of this will be addressed in several long term applications
+that are currently being developed, including a model Bayonne-based SIP
+telecenter. Other applications we will look at is large scale GNU Bayonne
+hosted voice mail and ACD systems. Some of these projects have waited for the
+introduction of GNU Bayonne web services.</p>
+
+<h2 id="long-term">Our long term vision for VoIP</h2>
+
+<p>There are several areas I consider important to the future of telephony and
+collaborative communications, including the question of the telephone handset,
+an instrument traditionally of low quality audio reception. The interest in GNU
+Telephony Open Embedded, and in migrating client softphone development to
+embedded devices in general, is related to our goal of eliminating the
+traditional handset altogether.</p>
+
+<p>Part of this idea involves re-thinking audio as it relates to telephony.
+While some have focused on questions like narrow-band vs wide-band, and hence
+overall quality of audio at the expense of bandwidth, I have chosen to focus on
+something different; how we can treat audio as a &ldquo;spatial&rdquo;
+environment for the listener, and so I have been experimenting with false
+spatial positioning through regenerated and artificially time shifted
+stereo.</p>
+
+<p>The real value of this comes into play when considering audio mixing for
+audio conferencing. The traditional way to do this is to route all the
+participants audio into a common conference server, mixing the audio together,
+and feeding each user the mixed result, minus their own audio.</p>
+
+<p>By maintaining multiple peer connections at the VoIP client (VoIP telephone
+phone devices), it is possible to mix audio at the end point rather than at the
+server. This means each connection can also be given a separate and distinct
+false spatial position in the resulting false stereo audio that you then hear.
+It is far easier and more natural to have a multiparty conference without
+confusion when each speaker &ldquo;appears&rdquo; to be in a different spatial
+location than when you mix their signals together at some central point.</p>
+
+<p>This also relates to the question of latency, which, particularly for VoIP,
+is a very important question. In current VoIP networks, latency can often
+approach 1/4 of a second, which is enough to be disturbing and ineffective.
+Each hop through a server, such as for mixing, or spoke-wheel configured
+centralized networks, adds significantly to latency, especially on poorly
+designed software, and hence even further reduces the quality of the call.
+Peer-to-peer calling, besides offering greater privacy, also reduces latency by
+removing intermediary servers.</p>
+
+<p>Other areas I have been exploring include ways to provide better security
+and privacy in VoIP, and not just by securing the audio channel with
+encryption. Given recent events, I have come to consider it vital to hide even
+basic signaling and call session information. In this area, I have looked at
+ideas like forward publishing and caching SIP location information through
+peer-to-peer networks for direct calling when trying to locate people, rather
+than depending on traditional SIP registrars and proxies which introduce
+signaling information at central control and intercept points. My long term
+goal in VoIP is to introduce massively scalable and secure peer-to-peer calling
+services with a focus on endpoint development and which have no centralized
+control points.</p>
+
+<h2 id="legal">Legal issues and Infrastructure</h2>
+
+<p>Of course, much of our vision for private, secure, and anonymous VoIP
+calling, including anonymous PSTN gateways, are things which I happen to
+consider a basic human right to privacy, and which fall well outside the scope
+of what will be permitted under new surveillance mandates such as those driven
+by <a href="https://www.cybertelecom.org/voip/fcccalea.htm">CALEA</a>. This is
+one reason we are locating some specific VoIP work outside of the U.S. We may
+need to do the same with current and future work in media servers should future
+digital restrictions mandates also appear, such as the broadcast flags.</p>
+
+<p>I also have recently been able to consolidate much of our separate web
+resources into one place, under the new wiki. This has made it much easier to
+consolidate project management overall. As part of this process, I do plan to
+setup a bugzilla site to consolidate bug tracking.</p>
+
+<p>Which particular area of the roadmap gets attention will depend on where we
+happen to find time, funding, and resources.</p>
+
+<hr class="thin" />
+
+<p>This page was retrieved from the Wayback Machine archive of the <a
+href="https://web.archive.org/web/20070824023326/http://wiki.gnutelephony.org/index.php/Roadmap">
+GNU Telephony wiki</a> (licensed under the <a
+href="/licenses/old-licenses/fdl-1.2.html">Free Documentation
+License&nbsp;1.2</a>), and slightly edited.</p>
+
+</body>
+</html>

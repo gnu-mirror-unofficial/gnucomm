@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<meta name="DC.title" content="gnu.org" />
+<link rel="stylesheet" href="/software/bayonne/css/guide.css" media="print,screen" />
+<link rel="stylesheet" href="/mini.css" media="handheld" />
+<style type="text/css" media="print,screen"><!--
+h2 { font-size: 1.2em;}
+--></style>
+<title>SIP Witch Portal - GNU Telephony - GNU Project - Free Software
+Foundation</title>
+</head>
+
+<body>
+<p class="toplinks">
+<a href="/software/sipwitch/sipwitch.html#content">SIP Witch</a>&nbsp;
+<a href="/software/gnucomm/gnucomm.html#content">GnuComm</a></p>
+
+<div class="title">
+<h1>Basic outline for GNU SIP Witch Portal</h1>
+</div>
+
+<p>Here is our basic outline for a GNU SIP Witch service portal, which looks
+simple enough to do quickly, and using limonade-php. If anyone has a better
+idea, that would be great!</p>
+
+<h2>Login/registration page</h2>
+
+<p>First, we need a login/registration page. Clearly, there is a GNU SIP Witch
+userid and password. The password is actually a md5 hash which includes the
+realm, and will be in the sipwitch xml provisioning file for that user. This
+way sipwitch sip identity and portal user authentication will be the same. But
+for the moment, lets talk about the new user.</p>
+
+<p>The registration page should ask for a user id, a name, an email address, a
+secret, and have a captcha. Perhaps there needs to be email validation as well,
+but this is a low ambition first draft.</p>
+
+<h2>SIP Witch XML provisioning file</h2>
+
+<p>In any case, the information can then be written directly as a sipwitch xml
+provisioning file. Of course, already existing users cannot be overwritten. At
+some point I will add a mysql plugin to sipwitch and the portal would use a
+real db rather than provisioning file. But this is for getting a 0.1 thing out
+early.</p>
+
+<h2>Change profile</h2>
+
+<p>If the user logs in, they can see and change their profile, which consists
+of basically the above and then modifying the xml provisioning file. At some
+point there will be speed dials one can add to a profile. Things like adding
+time zone, fancy location maps, additional contact info, etc, might be nice,
+but certainly not initially needed.</p>
+
+<h2>How to configure user agents</h2>
+
+<p>They also should be able to request a page that shows them/gives them basic
+instructions on how to configure several different existing user agents based
+on their id and the portal location.</p>
+
+<p>I think, from the perspective of users, that is all that is minimally
+required :).</p>
+
+<h2>Admin page</h2>
+
+<p>An admin page which lets an admin add/modify/remove provisioning files,
+review logs, and maybe change things like the realm, reset passwords, etc,
+could be useful also.</p>
+
+<h2>Conclusion</h2>
+
+<p>Some thoughts about the above</p>
+
+<p>Drupal (http://www.drupal.org/ ) has a lot of this ability built in. I doubt
+much would have to change in core at all, though the password aspect of the api
+(http://api.drupal.org/api/drupal/includes--password.inc/7/source ) might have
+to be scrutinized a bit. Drupal's GPL of course, and can add its own
+functionality to the portal as well. So, maybe a sipwitch module for Drupal may
+also be an idea.</p>
+
+<p>If you can compartmentalize the functions that are not actually in CMS's (of
+which there are few above), you could proceed with any framework you desire and
+thus allow code implementations with specific CMS's to simply create modules
+with the additional functionality, reinventing the wheel could be avoided.</p>
+
+<p>There is nothing in the design that says it could not be prototyped as a
+pure db/web application and then have sipwitch support added afterwards
+regardless of what it is done in. There are only three things needed for that;
+the ability to produce an XML provisioning file, the particular computation of
+sip compatible hashes from the user's password (it's basically a hash of the
+user's secret and the sip authentication realm), and sending control messages
+to the FIFO. It should be easy enough for example to do a PHP, Perl, or Python
+module to do these three functions, and then tie them in once the site itself
+is done.</p>
+
+<p>There are a few additional sipwitch features that it may be useful to expose
+to users through the web site. One is a list of active online users. This would
+be best to tie together with a personal list of contacts that can show on the
+user's speed dial page, so you can see who is currently available to call.</p>
+
+<p>If you would like to volunteer to help make that happen, that would be very
+excellent. We are planning releases within the next few weeks, and could need
+some help.</p>
+
+<hr class="thin" />
+<p>This page was retrieved from the Wayback Machine archive of the <a
+href="https://web.archive.org/web/20141002101042/http://www.gnutelephony.org/index.php/Basic_outline_for_GNU_SIP_Witch_Portal">
+GNU Telephony website</a> (licensed under the <a
+href="/licenses/fdl-1.3.html">Free Documentation License&nbsp;1.3</a>).</p>
+
+</body>
+</html>

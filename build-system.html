@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="/graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<meta name="DC.title" content="gnu.org" />
+<link rel="stylesheet" href="/software/bayonne/css/guide.css" media="print,screen" />
+<link rel="stylesheet" href="/mini.css" media="handheld" />
+<title>Build system - GNU Telephony - GNU Project - Free Software
+Foundation</title>
+</head>
+
+<body>
+<p class="toplinks">
+<a href="/software/gnucomm/gnucomm.html#content">GnuComm</a></p>
+
+<div class="title">
+<h1 class="center">Build system</h1>
+</div>
+
+<p><em>This was written in 2010. In 2017, the GNU Telephony project primarily
+uses CMake.</em></p>
+
+<h2 id="make-in-place">Make-in-Place</h2>
+
+<p>The GNU Telephony project now has a new &ldquo;make-in-place&rdquo; build
+system to build directly from a SVN checkout of our entire build tree. This can
+now be found on the Sourceforge SVN repository for GNU Telephony (<code>svn co
+https://gnutelephony.svn.sourceforge.net/svnroot/gnutelephony/trunk</code>).
+What this allows one to do is configure, build, and run all parts of GNU
+Telephony without having to do partial <code>make install</code> for dependent
+libraries or the need to create &ldquo;fake roots&rdquo; if one is a guest on
+a machine without root access.</p>
+
+<p>Make-in-place uses existing pkgconfig, automake, and libtool functionality
+to achieve this, along with a master top level configure script and Makefile.
+This makes it very easy to deploy automated compile farms, to generate embedded
+&amp; cross-compile build profiles, or to develop on hosts where
+different/conflicting versions of existing packages we offer may already be
+installed.</p>
+
+<p>A special category of helper scripts are found in the config directory for
+each package. These <code>.ex</code> files are used to indicate how to
+translate pkg-config directory references, how to link additional headers,
+etc.</p>
+
+<p>It is possible to use <a
+href="https://en.wikipedia.org/wiki/Eclipse_(software)">Eclipse</a> with
+Make-in-place.</p>
+
+<h2 id="using-Eclipse">Using Eclipse</h2>
+
+<p>There are two ways one can use Eclipse with GNU Telephony.</p>
+
+<p>The first method involves importing each package, perhaps directly from CVS
+from GNU Telecom Subsystem (GnuComm) on gnu.org, or using subclipse to import
+from our Sourceforge SVN repository. This method one can build code either as a
+local C++ &ldquo;make&rdquo; project, or perhaps even as an automake-managed
+project supported by newer versions of <abbr title="C/C++ Development Toolkit
+(IBM)">CDT</abbr> and the automake support plugins.</p>
+
+<p>Using this method, each package is maintained as a standalone entity. This
+means if dependent libraries are needed, they must be installed first. One
+might also have to build <code>make install</code> targets to get needed
+libraries out for other parts of GNU Telephony. There is a second approach
+possible, however, which can be used in conjunction with our Make-in-place
+build scripts.</p>
+
+<p>To use Eclipse with Make-in-place builds, you would start with a clean
+checkout of the entire build tree. You would then do the following steps:</p>
+
+<ul>
+ <li>run the master <code>./configure</code> script, selecting the profile you
+wish to use (or using generic).</li>
+
+ <li>create an empty Eclipse project for each GNU Telephony package (ucommon,
+sipwitch, etc) you wish to build. These should be created as empty C++
+&ldquo;standard make&rdquo; projects.</li>
+
+ <li>import the project using &ldquo;import from filesystem&rdquo;, selecting
+the directory where each package exists in the master make-in-place build tree
+checkout for each empty project you created.</li>
+
+ <li>run the top level <code>make</code> in make-in-place to get dependent
+libraries initially built.</li>
+</ul>
+
+<p>You now have projects filled with local Eclipse-managed copies of the
+make-in-place build tree. They are configured to use include files from the
+make-in-place tree, and to link their libraries from there. You can now use
+Eclipse for all your primary editing and make. You will need to export back to
+the build tree, and run <code>make</code> there to get dependent libraries to
+relink with changes (such as ucommon for sipwitch) if they are modified,
+however.</p>
+
+<p>There is also an Eclipse filesync plugin to automatically export changes
+back to the original file system/make-in-place directory tree. You can add a
+make target to run make from there to force the library to rebuild in the
+make-in-place tree from within Eclipse and automate this part.</p>
+
+<hr class="thin" />
+<p>This page was assembled from 2 pages of www.gnutelephony.org: <a
+href="https://web.archive.org/web/20141002100908/http://www.gnutelephony.org/index.php/Make-in-Place">
+Make in Place</a> and <a
+href="https://web.archive.org/web/20141002101050/http://www.gnutelephony.org/index.php/Using_Eclipse">
+Using Eclipse</a>, archived by the Wayback Machine and licensed under the <a
+href="/licenses/fdl-1.3.html">Free Documentation License&nbsp;1.3</a>.</p>
+
+</body>
+</html>
