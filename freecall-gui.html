@@ -19,72 +19,129 @@ Foundation</title>
 
 <body>
 <p class="toplinks">
+<a href="/software/gnucomm/freecall-announcement.html">Free&nbsp;Call&nbsp;Announcement</a>&nbsp;
+<a href="/software/gnucomm/freecall-roadmap.html">Free&nbsp;Call&nbsp;Roadmap</a>&nbsp;
 <a href="/software/gnucomm/gnucomm.html#content">GnuComm</a></p>
 
 <div class="title">
 <h1 class="center">GNU Free Call GUI</h1>
 </div>
 
-<p>GNU Free Call will be a secured peer-to-peer mesh networking SIP-phone based on GNU SIP Witch. Here is an illustration by Haakon Meland Eriksen.</p>
+<p>GNU Free Call will be a secured peer-to-peer mesh networking SIP-phone based
+on GNU SIP Witch. Here is an illustration by Haakon Meland Eriksen.</p>
 
-<p>The illustration tries to convey the idea that nearby phones with GNU Free Call acts as intermediaries between the volunteer and the doctor after a natural disaster. Cell phone towers are often physically destroyed, loose power and those that still work experience overload as people try to contact each other. Using the phones to create secured peer-to-peer mesh calling networks will hopefully make it possible to get through.
-
+<p>The illustration tries to convey the idea that nearby phones with GNU Free
+Call acts as intermediaries between the volunteer and the doctor after a
+natural disaster. Cell phone towers are often physically destroyed, loose power
+and those that still work experience overload as people try to contact each
+other. Using the phones to create secured peer-to-peer mesh calling networks
+will hopefully make it possible to get through.</p>
 
 <h2>Discovering the people around you</h2>
 
-<p>Given its decentralized nature, users need an easy way to find contacts and new potential contacts. Here is one idea, based on the OLPC project's Sugar interface, but rather than people meeting around activities people discover each other around tag clouds.
+<p>Given its decentralized nature, users need an easy way to find contacts and
+new potential contacts. Here is one idea, based on the OLPC project's Sugar
+interface, but rather than people meeting around activities people discover
+each other around tag clouds.</p>
 
 <h3>Main screen</h3>
 
-<p>The main screen initially shows the GNU Free Call logo with the buttons &ldquo;You&rdquo;, &ldquo;Fellow GNUs&rdquo; and &ldquo;Discover Hurd&rdquo; below. Clicking the buttons brings the user to one of the three main screens. The logo part may be used to show who you are talking to in a video conversation - double tap the video to zoom to full screen.
+<p>The main screen initially shows the GNU Free Call logo with the buttons
+&ldquo;You&rdquo;, &ldquo;Fellow GNUs&rdquo; and &ldquo;Discover Hurd&rdquo;
+below. Clicking the buttons brings the user to one of the three main screens.
+The logo part may be used to show who you are talking to in a video
+conversation - double tap the video to zoom to full screen.</p>
 
 <h3>You</h3>
 
-<p>At the top of the You-screen is a live search box with the default text set to &ldquo;Search You...&rdquo; and a single GNU-icon to identify the You-screen. Searching starts as you type, and the list of tags below shortens as you home in on the wanted item.
+<p>At the top of the You-screen is a live search box with the default text set
+to &ldquo;Search You...&rdquo; and a single GNU-icon to identify the
+You-screen. Searching starts as you type, and the list of tags below shortens
+as you home in on the wanted item.</p>
 
-<p>Information about you is stored as tag clouds, with separate privacy settings for each cloud or individual items in a cloud. There are three visibility setting - You, GNUs and Hurd. To the right of the tag name is a green dot in the You-column, which means only you can see it. You can slide this to the right, and make it visible to friends and contacts - the GNUs-column. You can slide it into the Hurd-column to let everyone see it.
+<p>Information about you is stored as tag clouds, with separate privacy
+settings for each cloud or individual items in a cloud. There are three
+visibility setting - You, GNUs and Hurd. To the right of the tag name is a
+green dot in the You-column, which means only you can see it. You can slide
+this to the right, and make it visible to friends and contacts - the
+GNUs-column. You can slide it into the Hurd-column to let everyone see it.</p>
 
 <h4>Sharing secrets</h4>
 
-<p>First time round, your secret key and your public key are generated. These are used to secretly share information, like images.
+<p>First time round, your secret key and your public key are generated. These
+are used to secretly share information, like images.</p>
 
-<p>Your secret key is used to unlock secrets sent to you. It is red and you cannot slide it to the right. This is to prevent you from accidentally sharing it. However, you can override this in the advanced settings.
+<p>Your secret key is used to unlock secrets sent to you. It is red and you
+cannot slide it to the right. This is to prevent you from accidentally sharing
+it. However, you can override this in the advanced settings.</p>
 
-<p>Your public key is used by others to send you secrets. It is green and initially visible to Fellow GNUs - your friends and contacts. You can slide it left so only you can see it, or you can slide it right so anyone can see it. Public keys visible to you are stored, so you can send secrets to friends and contacts.
+<p>Your public key is used by others to send you secrets. It is green and
+initially visible to Fellow GNUs - your friends and contacts. You can slide it
+left so only you can see it, or you can slide it right so anyone can see it.
+Public keys visible to you are stored, so you can send secrets to friends and
+contacts.</p>
 
-<p>To share for instance an image, simply tap the image to display its menu and choose &ldquo;Share secretly with...&rdquo; You select the contacts you want, and the image is duplicated and encrypted with your contacts public keys. They appear as a list of contact names below the original image and are initially only visible to you as yellow dots in the You-column. You slide it into GNUs-column to make it visible to your contacts. Your contacts use their secret key to view it.
+<p>To share for instance an image, simply tap the image to display its menu and
+choose &ldquo;Share secretly with...&rdquo; You select the contacts you want,
+and the image is duplicated and encrypted with your contacts public keys. They
+appear as a list of contact names below the original image and are initially
+only visible to you as yellow dots in the You-column. You slide it into
+GNUs-column to make it visible to your contacts. Your contacts use their secret
+key to view it.</p>
 
 <h3>Fellow GNUs</h3>
 
-<p>Contacts with information shown to you by your contacts. Adding a contact will automatically import the contact's public key, which you use to send secrets that only your contact's secret key can open. Search their tags. Tags may be truncated when the phone is in a vertical position, these should expand when the phone is in a horizontal position.
+<p>Contacts with information shown to you by your contacts. Adding a contact
+will automatically import the contact's public key, which you use to send
+secrets that only your contact's secret key can open. Search their tags. Tags
+may be truncated when the phone is in a vertical position, these should expand
+when the phone is in a horizontal position.</p>
 
 <h3>Discover Hurd</h3>
 
-<p>People or services with tags you can browse like directory or search for.
+<p>People or services with tags you can browse like directory or search
+for.</p>
 
-<p>Rather than writing &ldquo;Discover herd&rdquo;, I've taken some artistic freedom and written &ldquo;Discover Hurd&rdquo;. This is on purpose and in reference and homage to the architecture of the GNU/Hurd system. The basic nature of the GNU/Hurd system is decentralized, distributed and user-centric, and I felt that was applicable to GNU Free Call too - more user freedom. You can use Arch Hurd to try a GNU/Hurd system and discover how it works.
+<p>Rather than writing &ldquo;Discover herd&rdquo;, I've taken some artistic
+freedom and written &ldquo;Discover Hurd&rdquo;. This is on purpose and in
+reference and homage to the architecture of the GNU/Hurd system. The basic
+nature of the GNU/Hurd system is decentralized, distributed and user-centric,
+and I felt that was applicable to GNU Free Call too - more user freedom. You
+can use Arch Hurd to try a GNU/Hurd system and discover how it works.</p>
 
 <h2>Designers look here - SVG</h2>
 
-<p>GNU Free Call decentralized GUI plain SVG is available <em>[unavailable in 2017]</em>; feel free to improve it. Inkscape was used originally.
+<p>GNU Free Call decentralized GUI plain SVG is available <em>[unavailable in
+2017]</em>; feel free to improve it. Inkscape was used originally.</p>
 
 <h2>Android prototype</h2>
 
-<p>Haakon needed an Android prototype of the GUI to interact with to think of problems with the design and to more easily explain to people how this is supposed to work. Pimm Hogeling quickly put together an Android app showing the main screen with the three buttons, and the three sub-screens with a tag search field and some tags. NOTE: THE APP DOES NOT WORK - you cannot call with it - it is for illustration purposes only.
+<p>Haakon needed an Android prototype of the GUI to interact with to think of
+problems with the design and to more easily explain to people how this is
+supposed to work. Pimm Hogeling quickly put together an Android app showing the
+main screen with the three buttons, and the three sub-screens with a tag search
+field and some tags. NOTE: THE APP DOES NOT WORK &ndash; you cannot call with
+it &ndash; it is for illustration purposes only.</p>
 
-<p>Pimm's illustration prototype is available here: <a href="https://github.com/Pimm/GNU-Free-Call-prototype">https://github.com/Pimm/GNU-Free-Call-prototype</a>.
+<p>Pimm's illustration prototype is available here: <a
+href="https://github.com/Pimm/GNU-Free-Call-prototype">
+https://github.com/Pimm/GNU-Free-Call-prototype</a>.</p>
 
-<p>You need a file manager app to move it onto your phone. It was made to fit on Haakon's HTC Desire.
+<p>You need a file manager app to move it onto your phone. It was made to fit
+on Haakon's HTC Desire.</p>
 
 <h2>Identified problems with the design</h2>
+
 <ul>
- <li>Thinking about a medication tag and an allergy tag - how to restrict showing these to only one Fellow GNU, like a doctor or hospital?</li>
+ <li>Thinking about a medication tag and an allergy tag - how to restrict
+showing these to only one Fellow GNU, like a doctor or hospital?</li>
  <li>Drop the sub-screen title and put the search field there?</li>
 </ul>
 
 <h2>Other designs are possible and suggestions are welcome</h2>
 
-<p>We are interested in designs that give the widest range of users easy, consistant navigation - think emergency.
+<p>We are interested in designs that give the widest range of users easy,
+consistant navigation &ndash; think emergency.</p>
 
 <h2>Contact</h2>
 <ul>
